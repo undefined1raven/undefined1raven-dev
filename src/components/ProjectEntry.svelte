@@ -3,6 +3,7 @@
 	import Nav from './Nav.svelte';
 	import RingRelayLogoMin from '../deco/RingRelayLogoMin.svelte';
 	import ProjectEagleLogo from '../deco/ProjectEagleLogo.svelte';
+	import DroneBuzzLogo from '../deco/DroneBuzzLogo.svelte';
 	import Label from './Label.svelte';
 	import Button from './Button.svelte';
 	import ProjectsNav from './ProjectsNav.svelte';
@@ -31,14 +32,21 @@
 			deco: ProjectEagleLogo,
 			gradientColorPrimary: 'rgba(5, 0, 255, 0.2)',
 			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)'
+		},
+		DroneBuzz: {
+			title: 'Drone Buzz',
+			description:
+				'Drone Buzz is a mobile game where you are a drone trying to survive while completing objectives, upgrading and strategizing your path to victory ',
+			themeColorPrimary: '#2400FF',
+			themeColorSecondary: '#1C00C5',
+			deco: DroneBuzzLogo,
+			gradientColorPrimary: 'rgba(5, 0, 255, 0.2)',
+			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)'
 		}
 	};
 	export { show };
 </script>
 
-<svelte:window
-	on:click={() => (selectedProjectID == 'ProjectEagle' ? selectedProjectID = 'RingRelay' : selectedProjectID = 'ProjectEagle')}
-/>
 {#if show}
 	<div
 		transition:fade={{ duration: 150 }}
@@ -117,7 +125,7 @@
 			label="Details"
 		/>
 	</div>
-	<ProjectsNav></ProjectsNav>
+	<ProjectsNav on:projectSelected={(e) => (selectedProjectID = e.detail)} {selectedProjectID} />
 {/if}
 
 <style>
