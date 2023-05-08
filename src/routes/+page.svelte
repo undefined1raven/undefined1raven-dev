@@ -101,5 +101,6 @@
 	:global(body) {
 		background-color: #000005;
 		font-family: 'Electrolize', sans-serif;
+		overflow: hidden;
 	}
 </style>
