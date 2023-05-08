@@ -1,5 +1,4 @@
 <script>
-
 	import RingRelayLogoMin from '../deco/RingRelayLogoMin.svelte';
 	import ProjectEagleLogo from '../deco/ProjectEagleLogo.svelte';
 	import DroneBuzzLogo from '../deco/DroneBuzzLogo.svelte';
@@ -23,13 +22,18 @@
 		class="logoContainer"
 		style="border: solid 0px #6100FF;"
 		on:click={() => dispatch('projectSelected', 'RingRelay')}
-		on:mouseenter={() => {ringRelayMonochromeOverride = true}}
-		on:mouseleave={() => {ringRelayMonochromeOverride = false}}
+		on:mouseenter={() => {
+			ringRelayMonochromeOverride = true;
+		}}
+		on:mouseleave={() => {
+			ringRelayMonochromeOverride = false;
+		}}
 	>
 		<RingRelayLogoMin
 			size="95%"
 			monochrome={!(selectedProjectID == 'RingRelay') && !ringRelayMonochromeOverride}
 			style="top: 0%;"
+			animated={ringRelayMonochromeOverride}
 		/>
 	</div>
 	<div
@@ -47,6 +51,7 @@
 			size="95%"
 			monochrome={!(selectedProjectID == 'ProjectEagle') && !projectEagleMonochromeOverride}
 			style="top: 0%;"
+			animated={projectEagleMonochromeOverride}
 		/>
 	</div>
 	<div
@@ -60,6 +65,7 @@
 			size="100%"
 			monochrome={!(selectedProjectID == 'DroneBuzz') && !droneBuzzMonochromeOverride}
 			style="top: 0%;"
+			animated={droneBuzzMonochromeOverride}
 		/>
 	</div>
 </div>

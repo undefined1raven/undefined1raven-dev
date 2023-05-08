@@ -3,6 +3,7 @@
     let size = '5vh';
     let monochrome = false;
     let style = "";
+    let animated = false;
     let opacities = [];
     let interval;
     onMount(() => {
@@ -19,14 +20,16 @@
     });
 
     function getRandomOpacity() {
-        let random = Math.random();
-        if (random > 0.2) {
-            return random;
-        } else {
-            return 0.2;
+        if(animated){
+            let random = Math.random();
+            if (random > 0.2) {
+                return random;
+            } else {
+                return 0.2;
+            }
         }
     }
-    export { size, monochrome, style }
+    export { size, monochrome, style, animated }
 </script>
 
 

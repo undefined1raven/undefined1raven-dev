@@ -60,6 +60,7 @@
 		show={iniAniDecoShowArr[0]}
 		top="2%"
 		horizontalFont="5px"
+		desktopFont="15px"
 	/>
 	<Label
 		className="introText"
@@ -68,6 +69,7 @@
 		show={iniAniDecoShowArr[1]}
 		top="5%"
 		horizontalFont="5px"
+		desktopFont="15px"
 	/>
 	<Label
 		className="introText"
@@ -76,6 +78,7 @@
 		show={iniAniDecoShowArr[2]}
 		top="8%"
 		horizontalFont="5px"
+		desktopFont="15px"
 	/>
 	<Label
 		className="introText"
@@ -84,14 +87,15 @@
 		show={iniAniDecoShowArr[3]}
 		horizontalFont="5px"
 		top="11%"
+		desktopFont="15px"
 	/>
 	<ProjectEntry show={introFinished} />
 </div>
 
 <style>
-    :global(.introText){
-        letter-spacing: 0.1vh;
-    }
+	:global(.introText) {
+		letter-spacing: 0.1vh;
+	}
 	:global(#mainLogo) {
 		position: absolute;
 		top: 50%;

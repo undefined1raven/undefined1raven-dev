@@ -21,7 +21,9 @@
 			themeColorSecondary: '#35008B',
 			deco: RingRelayLogoMin,
 			gradientColorPrimary: 'rgba(97, 0, 220, 0.2)',
-			gradientColorSecondary: 'rgba(53, 0, 122, 0.1)'
+			gradientColorSecondary: 'rgba(53, 0, 122, 0.1)',
+			repoURL: 'https://github.com/undefined1raven/Ring-Relay',
+			appURL: 'https://ring-relay.live'
 		},
 		ProjectEagle: {
 			title: 'EAGLE',
@@ -31,7 +33,9 @@
 			themeColorSecondary: '#030096',
 			deco: ProjectEagleLogo,
 			gradientColorPrimary: 'rgba(5, 0, 255, 0.2)',
-			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)'
+			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)',
+			repoURL: 'https://github.com/undefined1raven/VultureLink',
+			appURL: null
 		},
 		DroneBuzz: {
 			title: 'Drone Buzz',
@@ -41,7 +45,9 @@
 			themeColorSecondary: '#1C00C5',
 			deco: DroneBuzzLogo,
 			gradientColorPrimary: 'rgba(5, 0, 255, 0.2)',
-			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)'
+			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)',
+			repoURL: 'https://github.com/undefined1raven/DroneBuzz',
+			appURL: 'https://dronebuzz.vercel.app'
 		}
 	};
 	export { show };
@@ -65,6 +71,7 @@
 				size="100%"
 				style="left: 50%; transform: translate(-50%); top: 0%;"
 				monochrome={false}
+				animated={true}
 			/>
 		</div>
 		<Label
@@ -87,25 +94,24 @@
 			top="71.191135734%"
 			width="100%"
 		/>
-		<a href="https://ring-relay.live" about="_blank"
+		<a href="{contentHash[selectedProjectID].appURL}" target="_blank"
 			><Button
-				color={contentHash[selectedProjectID].themeColorPrimary}
-				top="calc(78.947368421% + 7%)"
+				color={contentHash[selectedProjectID].appURL != null ? contentHash[selectedProjectID].themeColorPrimary : "#444"}
+				top="calc(78.947368421% + 10%)"
 				left="23.348519362%"
-				horizontalFont="7.5vh"
-				borderColor={contentHash[selectedProjectID].themeColorPrimary}
+				desktopFont="25px"
+				borderColor={contentHash[selectedProjectID].appURL != null ? contentHash[selectedProjectID].themeColorPrimary : "#444"}
 				width="25.056947608%"
 				height="8.033240997%"
 				className="transitionAll2"
-				label="Go to app"
-			/></a
+				label="Go to app"><Label show={contentHash[selectedProjectID].appURL === null} color="#444" top="72%" desktopFont="14px" text="Available during hardware tests only"></Label></Button></a
 		>
-		<a href="https://github.com/undefined1raven/Ring-Relay" about="_blank"
+		<a href="{contentHash[selectedProjectID].repoURL}" target="_blank"
 			><Button
 				color={contentHash[selectedProjectID].themeColorPrimary}
-				top="calc(78.947368421% + 7%)"
+				top="calc(78.947368421% + 10%)"
 				left="51.480637813%"
-				horizontalFont="7.5vh"
+				desktopFont="25px"
 				borderColor={contentHash[selectedProjectID].themeColorPrimary}
 				width="25.056947608%"
 				height="8.033240997%"
@@ -115,8 +121,9 @@
 		>
 		<Button
 			color={contentHash[selectedProjectID].themeColorPrimary}
-			top="calc(91.966759003% + 7%)"
+			top="calc(91.966759003% + 10%)"
 			left="23.348519362%"
+			desktopFont="25px"
 			horizontalFont="7.5vh"
 			borderColor={contentHash[selectedProjectID].themeColorPrimary}
 			width="53.189066059%"
