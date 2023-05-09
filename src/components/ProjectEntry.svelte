@@ -7,9 +7,8 @@
 	import Label from './Label.svelte';
 	import Button from './Button.svelte';
 	import ProjectsNav from './ProjectsNav.svelte';
+	import ContactDock from './ContactDock.svelte';
 	let show;
-	let primaryColor = '#6100DC';
-	let secondaryColor;
 
 	let selectedProjectID = 'RingRelay';
 	let contentHash = {
@@ -26,7 +25,7 @@
 			appURL: 'https://ring-relay.live'
 		},
 		ProjectEagle: {
-			title: 'EAGLE',
+			title: 'PROJECT EAGLE',
 			description:
 				'Project Eagle aims to build a fully remote flyable custom UAV with the goal of achieving an autonomous system that can be managed from anywhere in the world using the web app',
 			themeColorPrimary: '#0500FF',
@@ -94,19 +93,31 @@
 			top="71.191135734%"
 			width="100%"
 		/>
-		<a href="{contentHash[selectedProjectID].appURL}" target="_blank"
+		<a href={contentHash[selectedProjectID].appURL} target="_blank"
 			><Button
-				color={contentHash[selectedProjectID].appURL != null ? contentHash[selectedProjectID].themeColorPrimary : "#444"}
+				color={contentHash[selectedProjectID].appURL != null
+					? contentHash[selectedProjectID].themeColorPrimary
+					: '#444'}
 				top="calc(78.947368421% + 10%)"
 				left="23.348519362%"
 				desktopFont="25px"
-				borderColor={contentHash[selectedProjectID].appURL != null ? contentHash[selectedProjectID].themeColorPrimary : "#444"}
+				borderColor={contentHash[selectedProjectID].appURL != null
+					? contentHash[selectedProjectID].themeColorPrimary
+					: '#444'}
 				width="25.056947608%"
 				height="8.033240997%"
 				className="transitionAll2"
-				label="Go to app"><Label show={contentHash[selectedProjectID].appURL === null} color="#444" top="72%" desktopFont="14px" text="Available during hardware tests only"></Label></Button></a
+				label="Go to app"
+				><Label
+					show={contentHash[selectedProjectID].appURL === null}
+					color="#444"
+					top="72%"
+					desktopFont="14px"
+					text="Available during hardware tests only"
+				/></Button
+			></a
 		>
-		<a href="{contentHash[selectedProjectID].repoURL}" target="_blank"
+		<a href={contentHash[selectedProjectID].repoURL} target="_blank"
 			><Button
 				color={contentHash[selectedProjectID].themeColorPrimary}
 				top="calc(78.947368421% + 10%)"
@@ -133,6 +144,7 @@
 		/>
 	</div>
 	<ProjectsNav on:projectSelected={(e) => (selectedProjectID = e.detail)} {selectedProjectID} />
+	<ContactDock color="{contentHash[selectedProjectID].themeColorPrimary}"/>
 {/if}
 
 <style>
