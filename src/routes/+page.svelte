@@ -90,6 +90,7 @@
 		desktopFont="15px"
 	/>
 	<ProjectEntry show={introFinished} />
+	<Label text="[This page is currently under active dev]" color="#555" style="left: 50%; transform: translate(-50%);"></Label>
 </div>
 
 <style>
