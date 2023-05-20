@@ -29,7 +29,7 @@
 		height="100%"
 		color="#6100FF"
 		text={displayedText}
-		style="white-space: break-spaces; text-align: start;"
+		style="white-space: break-spaces; text-align: start; letter-spacing: 0.08vh;"
 		desktopFont="13px"
 	/>
 </div>
