@@ -4,6 +4,7 @@
 	import Button from '../components/Button.svelte';
 	import { onMount } from 'svelte';
 	import ProjectEntry from '../components/ProjectEntry.svelte';
+	import SourceCodeSnippetDock from '../components/SourceCodeSnippetDock.svelte';
 
 	let iniAniDecoShowArr = [false, false, false, false, false];
 	let introFinished = false;
@@ -90,6 +91,7 @@
 		desktopFont="15px"
 	/>
 	<ProjectEntry show={introFinished} />
+	<SourceCodeSnippetDock></SourceCodeSnippetDock>
 	<Label text="[This page is currently under active dev]" color="#555" style="left: 50%; transform: translate(-50%);"></Label>
 </div>
 

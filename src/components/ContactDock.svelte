@@ -18,12 +18,12 @@
 	<a href="https://github.com/undefined1raven" target="_blank"
 		><Button
 			label="Github"
-			width="calc(47.680412371% - 16%)"
+			width="calc(47.680412371% - 10%)"
 			height="44.117647059%"
 			left="0%"
 			top="55.882352941%"
 			{color}
-			style="justify-content: end; padding-right: 16%;"
+			style="justify-content: end; padding-right: 10%;"
 			borderColor={color}
 			borderRadius="3px"><div><GithubLogo {color} style="left: 12%; top: 20%;" /></div></Button
 		></a
@@ -31,13 +31,13 @@
 	<a href="https://linkedin.com/in/dominic-zlat-614253233" target="_blank"
 		><Button
 			label="LinkedIn"
-			width="calc(47.680412371% - 12%)"
+			width="calc(47.680412371% - 10%)"
 			height="44.117647059%"
 			left="52.319587629%"
 			top="55.882352941%"
 			{color}
 			borderColor={color}
-			style="justify-content: end; padding-right: 12%;"
+			style="justify-content: end; padding-right: 10%;"
 			borderRadius="3px"><LinkedLogo {color} style="left: 12%;" /></Button
 		></a
 	>
