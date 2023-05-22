@@ -83,4 +83,10 @@
 		width: 5.208333333%;
 		height: 28.148148148%;
 	}
+	@media only screen and (max-width: 1300px) and (min-height: 550px) {
+		.projectsNavContainer {
+			width: 20%;
+			left: 85%;
+		}
+	}
 </style>

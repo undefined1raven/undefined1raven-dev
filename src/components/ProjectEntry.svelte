@@ -168,6 +168,7 @@
 		source={`${selectedProjectID}.${sourceCodeSnippetSource}`}
 	/>
 	<div
+		id="sourceCodeExtractButton"
 		transition:fly={{ x: '-10%', y: '-10%', duration: 150, delay: 150 }}
 		style="position: absolute; top: 26.296296296%; left: 0.3125%; width: 14.589583333%; height:
 	3.518518519%;"
@@ -177,10 +178,9 @@
 				sourceCodeSnippetSource
 			]}]"
 			style="z-index: 500; border-bottom-left-radius: 0px; border-top-left-radius: 0px; justify-content: start; padding-left: 5%;"
-			desktopFont="{'15px'}"
+			desktopFont={'15px'}
 			top="0%"
 			left="0%"
-			id="sourceCodeExtractButton"
 			className="transitionAll2"
 			borderColor={contentHash[selectedProjectID].themeColorPrimary}
 			color={contentHash[selectedProjectID].themeColorPrimary}
@@ -256,5 +256,13 @@
 			rgba(97, 0, 220, 0.2) 0%,
 			rgba(53, 0, 122, 0.1) 100%
 		);
+	}
+	@media only screen and (max-width: 1300px) and (min-height: 550px) {
+		.projectOverviewContainer {
+			width: 80%;
+		}
+		#sourceCodeExtractButton{
+			width: 25% !important;
+		}
 	}
 </style>

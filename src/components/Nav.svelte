@@ -44,4 +44,9 @@
         align-items: center;
         justify-content: center;
 	}
+	@media only screen and (max-width: 1300px) and (min-height: 550px) {
+		.navContainer {
+			width: 25%;
+		}
+	}
 </style>
