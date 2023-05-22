@@ -8,8 +8,14 @@
 	import Button from './Button.svelte';
 	import ProjectsNav from './ProjectsNav.svelte';
 	import ContactDock from './ContactDock.svelte';
+	import SourceCodeSnippetDock from '../components/SourceCodeSnippetDock.svelte';
+	import RefreshDeco from '../deco/RefreshDeco.svelte';
+	import getRandomInt from '../fn/getRandomInt';
 	let show;
 
+	let refreshAni; //triggers refresh animation on the source code extract button deco
+
+	let sourceCodeSnippetSource = 0;
 	let selectedProjectID = 'RingRelay';
 	let contentHash = {
 		RingRelay: {
@@ -22,7 +28,8 @@
 			gradientColorPrimary: 'rgba(97, 0, 220, 0.2)',
 			gradientColorSecondary: 'rgba(53, 0, 122, 0.1)',
 			repoURL: 'https://github.com/undefined1raven/Ring-Relay',
-			appURL: 'https://ring-relay.live'
+			appURL: 'https://ring-relay.live',
+			sourceCodeExtractLabels: ['Crypto', 'Chat']
 		},
 		ProjectEagle: {
 			title: 'PROJECT EAGLE',
@@ -34,7 +41,8 @@
 			gradientColorPrimary: 'rgba(5, 0, 255, 0.2)',
 			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)',
 			repoURL: 'https://github.com/undefined1raven/VultureLink',
-			appURL: null
+			appURL: null,
+			sourceCodeExtractLabels: ['Auth']
 		},
 		DroneBuzz: {
 			title: 'Drone Buzz',
@@ -46,7 +54,8 @@
 			gradientColorPrimary: 'rgba(5, 0, 255, 0.2)',
 			gradientColorSecondary: 'rgba(5, 0, 180, 0.1)',
 			repoURL: 'https://github.com/undefined1raven/DroneBuzz',
-			appURL: 'https://dronebuzz.vercel.app'
+			appURL: 'https://dronebuzz.vercel.app',
+			sourceCodeExtractLabels: ['Enemy', 'Scorestreaks']
 		}
 	};
 	export { show };
@@ -143,8 +152,57 @@
 			label="Details"
 		/>
 	</div>
-	<ProjectsNav on:projectSelected={(e) => (selectedProjectID = e.detail)} {selectedProjectID} />
-	<ContactDock color="{contentHash[selectedProjectID].themeColorPrimary}"/>
+	<ProjectsNav
+		on:projectSelected={(e) => {
+			selectedProjectID = e.detail;
+			sourceCodeSnippetSource = getRandomInt(
+				0,
+				contentHash[selectedProjectID].sourceCodeExtractLabels.length
+			);
+		}}
+		{selectedProjectID}
+	/>
+	<ContactDock color={contentHash[selectedProjectID].themeColorPrimary} />
+	<SourceCodeSnippetDock
+		color={contentHash[selectedProjectID].themeColorPrimary}
+		source={`${selectedProjectID}.${sourceCodeSnippetSource}`}
+	/>
+	<div
+		transition:fly={{ x: '-10%', y: '-10%', duration: 150, delay: 150 }}
+		style="position: absolute; top: 26.296296296%; left: 0.3125%; width: 14.589583333%; height:
+	3.518518519%;"
+	>
+		<Button
+			label="Source Code Extract [{contentHash[selectedProjectID].sourceCodeExtractLabels[
+				sourceCodeSnippetSource
+			]}]"
+			style="z-index: 500; border-bottom-left-radius: 0px; border-top-left-radius: 0px; justify-content: start; padding-left: 5%;"
+			desktopFont="{'15px'}"
+			top="0%"
+			left="0%"
+			id="sourceCodeExtractButton"
+			className="transitionAll2"
+			borderColor={contentHash[selectedProjectID].themeColorPrimary}
+			color={contentHash[selectedProjectID].themeColorPrimary}
+			width="95.5%"
+			height="100%"
+			backgroundColor="{contentHash[selectedProjectID].themeColorPrimary}20"
+			backdropFilter="blur(5px)"
+			onClick={() => {
+				sourceCodeSnippetSource = getRandomInt(
+					0,
+					contentHash[selectedProjectID].sourceCodeExtractLabels.length
+				);
+				refreshAni.call();
+			}}
+			><RefreshDeco
+				bind:refreshAni
+				style="left: 85%;"
+				color={contentHash[selectedProjectID].themeColorPrimary}
+				size="3.2vh"
+			/></Button
+		>
+	</div>
 {/if}
 
 <style>
