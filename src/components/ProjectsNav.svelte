@@ -44,7 +44,7 @@
 <div
 	class="projectsNavContainer"
 	id="projectsNav"
-	style="left: {projectNavLeft};"
+	style="top: {isMobile() ? '80%' : '0.555555556%'}; left: {isMobile() ? '40%' : projectNavLeft}; transform: {isMobile() ? 'rotate(-90deg)' : 'none'};"
 	transition:fly={{ x: '20%', duration: 200, delay: 150 }}
 >
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -62,7 +62,7 @@
 		<RingRelayLogoMin
 			size="95%"
 			monochrome={!(selectedProjectID == 'RingRelay') && !ringRelayMonochromeOverride}
-			style="top: 0%;"
+			style="top: 0%; transform: {isMobile() ? 'rotate(90deg)' : 'none'};"
 			animated={ringRelayMonochromeOverride}
 		/>
 	</div>
@@ -80,7 +80,7 @@
 		<ProjectEagleLogo
 			size="95%"
 			monochrome={!(selectedProjectID == 'ProjectEagle') && !projectEagleMonochromeOverride}
-			style="top: 0%;"
+			style="top: 0%; transform: {isMobile() ? 'rotate(90deg)' : 'none'};"
 			animated={projectEagleMonochromeOverride}
 		/>
 	</div>
@@ -94,7 +94,7 @@
 		<DroneBuzzLogo
 			size="100%"
 			monochrome={!(selectedProjectID == 'DroneBuzz') && !droneBuzzMonochromeOverride}
-			style="top: 0%;"
+			style="top: 0%; transform: {isMobile() ? 'rotate(90deg)' : 'none'};"
 			animated={droneBuzzMonochromeOverride}
 		/>
 	</div>
@@ -112,6 +112,7 @@
 		left: 94.479166667%;
 		width: 5.208333333%;
 		height: 28.148148148%;
+		z-index: 100;
 	}
 	@media only screen and (max-width: 1300px) and (min-height: 550px) {
 		.projectsNavContainer {

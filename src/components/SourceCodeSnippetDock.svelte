@@ -84,7 +84,7 @@
 		screenSize = { height: root.clientHeight, width: root.clientWidth };
 	}}
 />
-<div class="sourceCodeSnippetContainer" style={`width: ${sourceCodeSnippetContainerWidth};`}>
+<div class="sourceCodeSnippetContainer" style={`width: ${sourceCodeSnippetContainerWidth}; height: ${isMobile() ? '100%' : '72%'}; top: ${isMobile() ? '0%' : '28%'};`}>
 	<Label
 		id="sourceCodeSnippet"
 		top="0%"

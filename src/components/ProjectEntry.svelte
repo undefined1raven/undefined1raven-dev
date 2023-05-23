@@ -17,7 +17,7 @@
 	let show;
 	let lscreenSize;
 	let refreshAni; //triggers refresh animation on the source code extract button deco
-	
+
 	onMount(() => {
 		screenSize.subscribe((val) => {
 			lscreenSize = val;
@@ -86,7 +86,7 @@
 			<svelte:component
 				this={contentHash[selectedProjectID].deco}
 				size="100%"
-				style="left: 50%; transform: translate(-50%); top: 0%;"
+				style="left: 50%; transform: translate(-50%); top: {isMobile() ? '-15%' : '0%'};"
 				monochrome={false}
 				animated={true}
 			/>
@@ -94,10 +94,11 @@
 		<Label
 			id="title"
 			className="transitionAll1"
+			style="{isMobile() ? 'letter-spacing: 1vh;' : 'letter-spacing: 2vh;'}"
 			text={contentHash[selectedProjectID].title}
 			color={contentHash[selectedProjectID].themeColorPrimary}
-			left="50%"
-			top="56.232686981%"
+			left={isMobile() ? '53%' : '50%'}
+			top={isMobile() ? '42.232686981%' : '56.232686981%'}
 			width="100%"
 			desktopFont="50px"
 			verticalFont="28px"
@@ -108,26 +109,33 @@
 			text={contentHash[selectedProjectID].description}
 			color={contentHash[selectedProjectID].themeColorPrimary}
 			left="50%"
-			top="71.191135734%"
+			top={isMobile() ? '57.191135734%' : '68.191135734%'}
 			width="100%"
 			desktopFont="28px"
-			verticalFont="15px"
+			backdropFilter={isMobile() ? `blur(2px)` : ''}
+			verticalFont="18px"
+			borderRadius="6px"
+			style="padding: 2%"
+			borderColor="{isMobile() ? `${contentHash[selectedProjectID].themeColorPrimary}30` : '#00000000'}"
 		/>
 		<a href={contentHash[selectedProjectID].appURL} target="_blank"
 			><Button
 				color={contentHash[selectedProjectID].appURL != null
 					? contentHash[selectedProjectID].themeColorPrimary
 					: '#444'}
-				top="calc(78.947368421% + 10%)"
-				left="23.348519362%"
+				top={isMobile() ? '82%' : '88.947368421%'}
+				left={isMobile() ? '5%' : '23.348519362%'}
 				desktopFont="25px"
 				borderColor={contentHash[selectedProjectID].appURL != null
 					? contentHash[selectedProjectID].themeColorPrimary
 					: '#444'}
-				width="25.056947608%"
+				width={isMobile() ? '90%' : '25.056947608%'}
 				height="8.033240997%"
 				className="transitionAll2"
 				label="Go to app"
+				backdropFilter={isMobile() ? 'blur(4px)' : ''}
+				borderRadius={isMobile() ? '4px' : '0px'}
+				verticalFont="18px"
 				><Label
 					show={contentHash[selectedProjectID].appURL === null}
 					color="#444"
@@ -140,27 +148,33 @@
 		<a href={contentHash[selectedProjectID].repoURL} target="_blank"
 			><Button
 				color={contentHash[selectedProjectID].themeColorPrimary}
-				top="calc(78.947368421% + 10%)"
-				left="51.480637813%"
+				top="{isMobile() ? `${82 + 12}%` : '88.947368421%'}"
+				left={isMobile() ? '5%' : '51.480637813%'}
 				desktopFont="25px"
 				borderColor={contentHash[selectedProjectID].themeColorPrimary}
-				width="25.056947608%"
+				width={isMobile() ? '90%' : '25.056947608%'}
 				height="8.033240997%"
 				className="transitionAll2"
 				label="View Code"
+				backdropFilter={isMobile() ? 'blur(4px)' : ''}
+				borderRadius={isMobile() ? '4px' : '0px'}
+				verticalFont="18px"
 			/></a
 		>
 		<Button
 			color={contentHash[selectedProjectID].themeColorPrimary}
-			top="calc(91.966759003% + 10%)"
-			left="23.348519362%"
+			top="{isMobile() ? `${82 + 24}%` : '101.966759003%'}"
+			left={isMobile() ? '5%' : '23.348519362%'}
 			desktopFont="25px"
 			horizontalFont="7.5vh"
 			borderColor={contentHash[selectedProjectID].themeColorPrimary}
-			width="53.189066059%"
+			width={isMobile() ? '90%' : '53.189066059%'}
 			className="transitionAll2"
 			height="8.033240997%"
 			label="Details"
+			backdropFilter={isMobile() ? 'blur(4px)' : ''}
+			borderRadius={isMobile() ? '4px' : '0px'}
+			verticalFont="18px"
 		/>
 	</div>
 	<ProjectsNav
@@ -245,7 +259,6 @@
 		height: 41.551246537%;
 	}
 	:global(#title) {
-		letter-spacing: 2vh;
 		transform: translate(-50%);
 		text-align: center;
 	}
@@ -256,6 +269,7 @@
 		transform: translate(-50%);
 		width: 45.729166667%;
 		height: 66.851851852%;
+		z-index: 50;
 	}
 	#gradientBkg {
 		position: absolute;
@@ -273,7 +287,7 @@
 		.projectOverviewContainer {
 			width: 95%;
 		}
-		#sourceCodeExtractButton{
+		#sourceCodeExtractButton {
 			width: 25% !important;
 		}
 	}

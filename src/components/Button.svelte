@@ -68,7 +68,7 @@
 			if (orientation == 'portrait') {
 				if (verticalFont != undefined) {
 					fontSize =
-						(parseFloat(verticalFont.substring(0, verticalFont.length - 2)) * clientWidth) / 640 +
+						(parseFloat(verticalFont.substring(0, verticalFont.length - 2)) * clientWidth) / 360 +
 						'px';
 				} else {
 					fontSize = '1.4vh';

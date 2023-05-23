@@ -142,6 +142,7 @@
     height: {iu(height, 'auto')}; 
     color: {iu(color, '#FFF')}; 
     background-color: {iu(backgroundColor, '#2400FF00')};
+	border: solid 1px {iu(borderColor, '#FFFFFF00')};
     border-radius: {((parseFloat(
 			iu(borderRadius, '0px').substring(0, iu(borderRadius, '0px').length - 2)
 		) *

@@ -31,7 +31,7 @@
 	export { color };
 </script>
 
-<div class="contactDockContainer" transition:fly={{ y: '20%', duration: 200, delay: 150 }}>
+<div class="contactDockContainer" transition:fly={{ y: '20%', duration: 200, delay: 150 }} style="display: {isMinified ? 'none' : 'flex'};">
 	<div
 		class="contactDockBorderTop"
 		style="background: radial-gradient(50% 50% at 50% 50%, {color} 0%, rgba(97, 0, 255, 0) 100%);"
