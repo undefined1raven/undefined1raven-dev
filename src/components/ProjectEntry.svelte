@@ -109,7 +109,7 @@
 			text={contentHash[selectedProjectID].description}
 			color={contentHash[selectedProjectID].themeColorPrimary}
 			left="50%"
-			top={isMobile() ? '57.191135734%' : '68.191135734%'}
+			top={isMobile() ? '52.191135734%' : '68.191135734%'}
 			width="100%"
 			desktopFont="28px"
 			backdropFilter={isMobile() ? `blur(2px)` : ''}

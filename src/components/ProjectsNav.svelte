@@ -32,7 +32,6 @@
 		updateProjectNavLeft();
 	});
 
-	let monochromeOverrideHash = { RingRelay: false, ProjectEagle: false, DroneBuzz: false };
 	export { selectedProjectID };
 </script>
 
@@ -44,7 +43,7 @@
 <div
 	class="projectsNavContainer"
 	id="projectsNav"
-	style="top: {isMobile() ? '80%' : '0.555555556%'}; left: {isMobile() ? '40%' : projectNavLeft}; transform: {isMobile() ? 'rotate(-90deg)' : 'none'};"
+	style="height: {isMobile() ? '38.148148148%' : '28.148148148%'};top: {isMobile() ? '74%' : '0.555555556%'}; left: {isMobile() ? '40%' : projectNavLeft}; transform: {isMobile() ? 'rotate(-90deg)' : 'none'};"
 	transition:fly={{ x: '20%', duration: 200, delay: 150 }}
 >
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
