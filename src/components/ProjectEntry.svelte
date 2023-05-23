@@ -1,5 +1,6 @@
 <script>
 	import { fade, fly, scale } from 'svelte/transition';
+	import { onMount } from 'svelte';
 	import Nav from './Nav.svelte';
 	import RingRelayLogoMin from '../deco/RingRelayLogoMin.svelte';
 	import ProjectEagleLogo from '../deco/ProjectEagleLogo.svelte';
@@ -11,9 +12,17 @@
 	import SourceCodeSnippetDock from '../components/SourceCodeSnippetDock.svelte';
 	import RefreshDeco from '../deco/RefreshDeco.svelte';
 	import getRandomInt from '../fn/getRandomInt';
+	import screenSize from '../stores/screenSize';
+	import isMobile from '../fn/isMobile';
 	let show;
-
+	let lscreenSize;
 	let refreshAni; //triggers refresh animation on the source code extract button deco
+	
+	onMount(() => {
+		screenSize.subscribe((val) => {
+			lscreenSize = val;
+		});
+	});
 
 	let sourceCodeSnippetSource = 0;
 	let selectedProjectID = 'RingRelay';
@@ -87,20 +96,22 @@
 			className="transitionAll1"
 			text={contentHash[selectedProjectID].title}
 			color={contentHash[selectedProjectID].themeColorPrimary}
-			style="font-size: 4.5vh;"
 			left="50%"
 			top="56.232686981%"
 			width="100%"
+			desktopFont="50px"
+			verticalFont="28px"
 		/>
 		<Label
 			className="alignHorizontalAlign transitionAll1"
 			id="description"
 			text={contentHash[selectedProjectID].description}
 			color={contentHash[selectedProjectID].themeColorPrimary}
-			style="font-size: 2.5vh;"
 			left="50%"
 			top="71.191135734%"
 			width="100%"
+			desktopFont="28px"
+			verticalFont="15px"
 		/>
 		<a href={contentHash[selectedProjectID].appURL} target="_blank"
 			><Button
@@ -171,7 +182,7 @@
 		id="sourceCodeExtractButton"
 		transition:fly={{ x: '-10%', y: '-10%', duration: 150, delay: 150 }}
 		style="position: absolute; top: 26.296296296%; left: 0.3125%; width: 14.589583333%; height:
-	3.518518519%;"
+	3.518518519%; display: {lscreenSize?.width < 800 && !isMobile() ? 'none' : 'flex'}"
 	>
 		<Button
 			label="Source Code Extract [{contentHash[selectedProjectID].sourceCodeExtractLabels[
@@ -181,6 +192,7 @@
 			desktopFont={'15px'}
 			top="0%"
 			left="0%"
+			opacity={isMobile() ? 0 : 1}
 			className="transitionAll2"
 			borderColor={contentHash[selectedProjectID].themeColorPrimary}
 			color={contentHash[selectedProjectID].themeColorPrimary}
@@ -259,7 +271,7 @@
 	}
 	@media only screen and (max-width: 1300px) and (min-height: 550px) {
 		.projectOverviewContainer {
-			width: 80%;
+			width: 95%;
 		}
 		#sourceCodeExtractButton{
 			width: 25% !important;

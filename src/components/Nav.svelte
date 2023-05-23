@@ -2,27 +2,75 @@
 	import Label from './Label.svelte';
 	import Button from './Button.svelte';
 	import { fly } from 'svelte/transition';
-    import LogoMin from '../deco/LogoMin.svelte'
+	import LogoMin from '../deco/LogoMin.svelte';
+	import screenSize from '../stores/screenSize';
+	import isMobile from '../fn/isMobile';
+	import { onMount } from 'svelte';
+
+	let lscreenSize;
+	let isMinified = false;
+
+	function setIsMinified() {
+		if (!isMobile() && lscreenSize?.width > 800) {
+			isMinified = false;
+		} else {
+			isMinified = true;
+		}
+	}
+	onMount(() => {
+		screenSize.subscribe((val) => {
+			lscreenSize = val;
+			setIsMinified();
+		});
+	});
+
 	let primaryColor = '#2400FF';
 	let secondaryColor = '#1300AA';
 	export { primaryColor, secondaryColor };
 </script>
 
-<div class="navContainer" transition:fly={{ x: '-20%', duration: 200, delay: 150 }}>
+<div class="navContainer" transition:fly={{ x: '-20%', duration: 200, delay: 150 }} style="display: {isMobile() ? 'none' : 'flex'};">
 	<div class="titleContainer" style="border-color: {primaryColor};">
 		<Label
-			text="undefined1raven _dev_"
+			text={isMinified ? '' : 'undefined1raven _dev_'}
 			width="60.070671378%"
 			color={primaryColor}
 			style="font-size: 2vh;"
 			left="33.085501859%"
 			desktopFont="15px"
 		/>
-        <LogoMin size="7vh" style="left: 5%;" color={primaryColor}></LogoMin>
+		<LogoMin size="7vh" style="left: {isMinified ? 'auto' : '5%'};" color={primaryColor} />
 	</div>
-    <Button label="Projects" top="46.564885496%" color={primaryColor} borderColor={primaryColor} backgroundColor="{primaryColor}20" width="100%" height="13.740458015%" desktopFont="20px"></Button>
-    <Button label="Contact" top="66.41221374%" color={primaryColor} borderColor={primaryColor} backgroundColor="{primaryColor}00" width="100%" height="13.740458015%" desktopFont="20px"></Button>
-    <Button label="Skills" top="86.259541985%" color={primaryColor} borderColor={primaryColor} backgroundColor="{primaryColor}00" width="100%" height="13.740458015%" desktopFont="20px"></Button>
+	<Button
+		label="Projects"
+		top="46.564885496%"
+		color={primaryColor}
+		borderColor={primaryColor}
+		backgroundColor="{primaryColor}20"
+		width="100%"
+		height="13.740458015%"
+		desktopFont="20px"
+	/>
+	<Button
+		label="Contact"
+		top="66.41221374%"
+		color={primaryColor}
+		borderColor={primaryColor}
+		backgroundColor="{primaryColor}00"
+		width="100%"
+		height="13.740458015%"
+		desktopFont="20px"
+	/>
+	<Button
+		label="Skills"
+		top="86.259541985%"
+		color={primaryColor}
+		borderColor={primaryColor}
+		backgroundColor="{primaryColor}00"
+		width="100%"
+		height="13.740458015%"
+		desktopFont="20px"
+	/>
 </div>
 
 <style>
@@ -40,13 +88,18 @@
 		width: 100%;
 		height: 38.167938931%;
 		border: solid 1px #2400ff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	@media only screen and (max-width: 1300px) and (min-height: 550px) {
 		.navContainer {
 			width: 25%;
+		}
+	}
+	@media only screen and (max-width: 800px) and (min-height: 550px) {
+		.navContainer {
+			width: 15%;
 		}
 	}
 </style>

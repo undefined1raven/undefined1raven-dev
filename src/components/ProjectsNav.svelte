@@ -2,21 +2,51 @@
 	import RingRelayLogoMin from '../deco/RingRelayLogoMin.svelte';
 	import ProjectEagleLogo from '../deco/ProjectEagleLogo.svelte';
 	import DroneBuzzLogo from '../deco/DroneBuzzLogo.svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	const dispatch = createEventDispatcher();
 	import { fly } from 'svelte/transition';
+	import isMobile from '../fn/isMobile';
+
+	const root = document.documentElement;
 
 	let selectedProjectID;
-
 	let ringRelayMonochromeOverride = false;
 	let projectEagleMonochromeOverride = false;
 	let droneBuzzMonochromeOverride = false;
+	let projectNavLeft = '94.479166667%';
+
+	function updateProjectNavLeft(screenSize) {
+		let offset = 0;
+		if(root.clientWidth < 1300 && !isMobile()){
+			offset = 0.05 * root.clientWidth;
+		}else{
+			offset = -0.002 * root.clientWidth;
+		}
+		projectNavLeft =
+			root.clientWidth -
+			document.getElementById('projectsNav')?.clientWidth + offset +
+			'px';
+	}
+
+	onMount(() => {
+		updateProjectNavLeft();
+	});
 
 	let monochromeOverrideHash = { RingRelay: false, ProjectEagle: false, DroneBuzz: false };
 	export { selectedProjectID };
 </script>
 
-<div class="projectsNavContainer" transition:fly={{ x: '20%', duration: 200, delay: 150 }}>
+<svelte:window
+	on:resize={() => {
+		updateProjectNavLeft();
+	}}
+/>
+<div
+	class="projectsNavContainer"
+	id="projectsNav"
+	style="left: {projectNavLeft};"
+	transition:fly={{ x: '20%', duration: 200, delay: 150 }}
+>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
 		class="logoContainer"

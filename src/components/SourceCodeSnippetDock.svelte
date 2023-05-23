@@ -28,12 +28,16 @@
 	};
 
 	function sourceCodeSnippetContainerWidthController(screenSize) {
-		if(isMobile()){
+		if (isMobile()) {
 			sourceCodeSnippetContainerWidth = '100%';
-		}else{
-			if(screenSize.width < 1300){
-				sourceCodeSnippetContainerWidth = '30%';
-			}else{
+		} else {
+			if (screenSize.width < 1300) {
+				if (screenSize.width < 800) {
+					sourceCodeSnippetContainerWidth = '100%';
+				} else {
+					sourceCodeSnippetContainerWidth = '30%';
+				}
+			} else {
 				sourceCodeSnippetContainerWidth = '20%';
 			}
 		}

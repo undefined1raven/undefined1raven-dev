@@ -1,6 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import isMobile from '../fn/isMobile.ts';
+	import { RangeScaler } from '../fn/RangeScaler.js';
+	import screenSize from '../stores/screenSize';
 
 	let id;
 	let text;
@@ -41,6 +43,9 @@
 		clientHeight = root.clientHeight;
 		clientWidth = root.clientWidth;
 		fontController();
+		screenSize.update(() => {
+			return { width: clientWidth, height: clientHeight };
+		});
 	}
 
 	function iu(val, valDefault) {
@@ -61,7 +66,7 @@
 			if (orientation == 'portrait') {
 				if (verticalFont != undefined) {
 					fontSize =
-						(parseFloat(verticalFont.substring(0, verticalFont.length - 2)) * clientWidth) / 640 +
+						(parseFloat(verticalFont.substring(0, verticalFont.length - 2)) * clientWidth) / 360 +
 						'px';
 				} else {
 					fontSize = '1.4vh';
@@ -77,12 +82,16 @@
 				}
 			}
 		} else {
+			let rawFontSize;
 			if (desktopFont != undefined) {
-				fontSize =
-					(parseFloat(desktopFont.substring(0, desktopFont.length - 2)) * clientHeight) / 1080 +
-					'px';
+				rawFontSize =
+					(parseFloat(desktopFont.substring(0, desktopFont.length - 2)) * clientHeight) / 1080;
+				fontSize = rawFontSize + 'px';
 			} else {
-				fontSize = '2vh';
+				fontSize = '18px';
+			}
+			if (clientWidth < 700 && rawFontSize && !isMobile()) {
+				fontSize = parseFloat(rawFontSize - RangeScaler(rawFontSize, 10, 48, 0, 18)) + 'px';
 			}
 		}
 	}

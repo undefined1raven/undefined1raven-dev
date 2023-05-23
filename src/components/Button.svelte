@@ -1,6 +1,7 @@
 <script>
 	import { onMount, createEventDispatcher } from 'svelte';
 	import isMobile from '../fn/isMobile.ts';
+	import { RangeScaler } from '../fn/RangeScaler.js';
 	const dispatch = createEventDispatcher();
 	let id;
 	let label;
@@ -83,12 +84,16 @@
 				}
 			}
 		} else {
+			let rawFontSize;
 			if (desktopFont != undefined) {
-				fontSize =
-					(parseFloat(desktopFont.substring(0, desktopFont.length - 2)) * clientHeight) / 1080 +
-					'px';
+				rawFontSize =
+					(parseFloat(desktopFont.substring(0, desktopFont.length - 2)) * clientHeight) / 1080;
+				fontSize = rawFontSize + 'px';
 			} else {
-				fontSize = '2vh';
+				fontSize = '15px';
+			}
+			if (clientWidth < 700 && rawFontSize && !isMobile()) {
+				fontSize = parseFloat(rawFontSize - RangeScaler(rawFontSize, 10, 48, 0, 18)) + 'px';
 			}
 		}
 	}

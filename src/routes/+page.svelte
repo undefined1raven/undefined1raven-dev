@@ -4,6 +4,7 @@
 	import Button from '../components/Button.svelte';
 	import { onMount } from 'svelte';
 	import ProjectEntry from '../components/ProjectEntry.svelte';
+	import isMobile from '../fn/isMobile';
 	import SourceCodeSnippetDock from '../components/SourceCodeSnippetDock.svelte';
 
 	let iniAniDecoShowArr = [false, false, false, false, false];
@@ -37,21 +38,21 @@
 		id="mainLogo"
 		color="#11007C"
 		size="30vh"
-		show={iniAniDecoShowArr[2]}
+		show={iniAniDecoShowArr[2] && !isMobile()}
 		style="left: calc(25.833333333% + 8%);"
 	/>
 	<Logo
 		id="mainLogo"
 		color="#11007C"
 		size="30vh"
-		show={iniAniDecoShowArr[1]}
+		show={iniAniDecoShowArr[1] && !isMobile()}
 		style="left: calc(9.479166667% + 8%);"
 	/>
 	<Logo
 		id="mainLogo"
 		color="#11007C"
 		size="30vh"
-		show={iniAniDecoShowArr[0]}
+		show={iniAniDecoShowArr[0] && !isMobile()}
 		style="left: calc(-6.770833333% + 8%);"
 	/>
 	<Label
@@ -105,6 +106,8 @@
 		transform: translate(-50%, -50%);
 	}
 	:global(body) {
+		width: 100%;
+		height: 100%;
 		background-color: #000005;
 		font-family: 'Electrolize', sans-serif;
 		overflow: hidden;
