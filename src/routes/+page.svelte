@@ -105,7 +105,7 @@
 	<ProjectEntry show={introFinished} />
 	{#if introFinished}
 		<Nav primaryColor={lglobalTheme.primary} />
-		<MobileNav primaryColor={lglobalTheme.primary} />
+		<MobileNav secondaryColor={lglobalTheme.secondary} primaryColor={lglobalTheme.primary} />
 	{/if}
 	<Label
 		text="[This page is currently under active dev]"

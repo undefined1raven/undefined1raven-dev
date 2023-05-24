@@ -3,11 +3,13 @@
 	import LogoMin from '../deco/LogoMin.svelte';
 	import { fly, scale } from 'svelte/transition';
 	import ArrowIndi from '../deco/ArrowIndi.svelte';
+	import Button from './Button.svelte';
 
 	let primaryColor;
+	let secondaryColor;
 	let isExtended = false;
 
-	export { primaryColor };
+	export { primaryColor, secondaryColor };
 </script>
 
 {#if isMobile()}
@@ -39,7 +41,11 @@
 			/>
 		</div>
 		{#if isExtended}
-			<div class="mobileNavMenuContainer" style="border-color: {primaryColor};" transition:scale={{ x: '-10%', y: '-30%', duration: 100 }} />
+			<div class="mobileNavMenuContainer" style="border-color: {primaryColor}; background-color: #00000000;" transition:scale={{ x: '-10%', y: '-30%', duration: 100 }}>
+                <Button left="9.943181818%" width="80.397727273%" height="16.438356164%" verticalFont="18px" borderRadius="5px" top="13.698630137%" color={primaryColor} borderColor={primaryColor} label="Projects"></Button>
+                <Button left="9.943181818%" width="80.397727273%" height="16.438356164%" verticalFont="18px" borderRadius="5px" top="42.922374429%" color={primaryColor} borderColor={primaryColor} label="Skills"></Button>
+                <Button left="9.943181818%" width="80.397727273%" height="16.438356164%" verticalFont="18px" borderRadius="5px" top="69.406392694%" color={primaryColor} borderColor={primaryColor} label="About Me"></Button>
+            </div>
 		{/if}
 	</div>
 {/if}
@@ -54,15 +60,11 @@
 		border: solid 1px #6100ff;
 		border-radius: 0 5px 5px 5px;
 		transition: all linear 0.1s;
-		backdrop-filter: blur(2px);
+		backdrop-filter: blur(25px);
 		z-index: 150;
-		background: radial-gradient(
-				100.91% 100.91% at 49.15% 0%,
-				rgba(97, 0, 255, 0.1) 0%,
-				rgba(97, 0, 255, 0.15) 0.01%,
-				rgba(66, 0, 255, 0.15) 100%
-			)
-			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 	}
 	.mobileNavControlllerContainer {
 		position: absolute;
