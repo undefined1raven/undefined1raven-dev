@@ -1,7 +1,6 @@
 <script>
 	import { fade, fly, scale } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import Nav from './Nav.svelte';
 	import RingRelayLogoMin from '../deco/RingRelayLogoMin.svelte';
 	import ProjectEagleLogo from '../deco/ProjectEagleLogo.svelte';
 	import DroneBuzzLogo from '../deco/DroneBuzzLogo.svelte';
@@ -14,6 +13,7 @@
 	import getRandomInt from '../fn/getRandomInt';
 	import screenSize from '../stores/screenSize';
 	import isMobile from '../fn/isMobile';
+	import globalTheme from '../stores/globalTheme';
 	let show;
 	let lscreenSize;
 	let refreshAni; //triggers refresh animation on the source code extract button deco
@@ -23,6 +23,12 @@
 			lscreenSize = val;
 		});
 	});
+
+	function updateGlobalTheme(selectedProjectID){
+		globalTheme.set({primary: contentHash[selectedProjectID].themeColorPrimary, secondary: contentHash[selectedProjectID].themeColorSecondary});
+	}
+
+	$: updateGlobalTheme(selectedProjectID);
 
 	let sourceCodeSnippetSource = 0;
 	let selectedProjectID = 'RingRelay';
@@ -80,7 +86,6 @@
 		{contentHash[selectedProjectID].gradientColorSecondary} 100%
 	); transition: background ease-in-out 0.2s;"
 	/>
-	<Nav primaryColor={contentHash[selectedProjectID].themeColorPrimary} />
 	<div class="projectOverviewContainer" transition:fly={{ y: '-10%', duration: 150, delay: 150 }}>
 		<div class="logoContainer" transition:fade={{ duration: 100 }}>
 			<svelte:component
@@ -94,7 +99,7 @@
 		<Label
 			id="title"
 			className="transitionAll1"
-			style="{isMobile() ? 'letter-spacing: 1vh;' : 'letter-spacing: 2vh;'}"
+			style={isMobile() ? 'letter-spacing: 1vh;' : 'letter-spacing: 2vh;'}
 			text={contentHash[selectedProjectID].title}
 			color={contentHash[selectedProjectID].themeColorPrimary}
 			left={isMobile() ? '53%' : '50%'}
@@ -116,7 +121,9 @@
 			verticalFont="18px"
 			borderRadius="6px"
 			style="padding: 2%"
-			borderColor="{isMobile() ? `${contentHash[selectedProjectID].themeColorPrimary}30` : '#00000000'}"
+			borderColor={isMobile()
+				? `${contentHash[selectedProjectID].themeColorPrimary}30`
+				: '#00000000'}
 		/>
 		<a href={contentHash[selectedProjectID].appURL} target="_blank"
 			><Button
@@ -148,7 +155,7 @@
 		<a href={contentHash[selectedProjectID].repoURL} target="_blank"
 			><Button
 				color={contentHash[selectedProjectID].themeColorPrimary}
-				top="{isMobile() ? `${82 + 12}%` : '88.947368421%'}"
+				top={isMobile() ? `${82 + 12}%` : '88.947368421%'}
 				left={isMobile() ? '5%' : '51.480637813%'}
 				desktopFont="25px"
 				borderColor={contentHash[selectedProjectID].themeColorPrimary}
@@ -163,7 +170,7 @@
 		>
 		<Button
 			color={contentHash[selectedProjectID].themeColorPrimary}
-			top="{isMobile() ? `${82 + 24}%` : '101.966759003%'}"
+			top={isMobile() ? `${82 + 24}%` : '101.966759003%'}
 			left={isMobile() ? '5%' : '23.348519362%'}
 			desktopFont="25px"
 			horizontalFont="7.5vh"

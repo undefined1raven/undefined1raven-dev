@@ -1,5 +1,4 @@
 <script>
-	import { scale } from 'svelte/transition';
 	let size = '2vh';
 	let style = "";
 	let color = "#2400FF";
@@ -13,3 +12,10 @@
 <rect x="1.18172" y="36.2166" width="35.0285" height="35.0285" transform="rotate(-45 1.18172 36.2166)" stroke={color}/>
 <rect x="1.0406" y="25.8093" width="35.0285" height="35.0285" transform="rotate(-45 1.0406 25.8093)" stroke={color}/>
 </svg>
+
+
+<style>
+	rect{
+		transition: all linear 0.1s;
+	}
+</style>

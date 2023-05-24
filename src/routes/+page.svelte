@@ -6,6 +6,17 @@
 	import ProjectEntry from '../components/ProjectEntry.svelte';
 	import isMobile from '../fn/isMobile';
 	import SourceCodeSnippetDock from '../components/SourceCodeSnippetDock.svelte';
+	import MobileNav from '../components/MobileNav.svelte';
+	import globalTheme from '../stores/globalTheme';
+	import Nav from '../components/Nav.svelte';
+
+	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
+
+	onMount(() => {
+		globalTheme.subscribe((theme) => {
+			lglobalTheme = theme;
+		});
+	});
 
 	let iniAniDecoShowArr = [false, false, false, false, false];
 	let introFinished = false;
@@ -92,7 +103,15 @@
 		desktopFont="15px"
 	/>
 	<ProjectEntry show={introFinished} />
-	<Label text="[This page is currently under active dev]" color="#555" style="left: 50%; transform: translate(-50%);"></Label>
+	{#if introFinished}
+		<Nav primaryColor={lglobalTheme.primary} />
+		<MobileNav primaryColor={lglobalTheme.primary} />
+	{/if}
+	<Label
+		text="[This page is currently under active dev]"
+		color="#555"
+		style="left: 50%; transform: translate(-50%);"
+	/>
 </div>
 
 <style>
