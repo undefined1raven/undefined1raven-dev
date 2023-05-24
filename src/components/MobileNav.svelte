@@ -1,7 +1,7 @@
 <script>
 	import isMobile from '../fn/isMobile';
 	import LogoMin from '../deco/LogoMin.svelte';
-	import { fly } from 'svelte/transition';
+	import { fly, scale } from 'svelte/transition';
 	import ArrowIndi from '../deco/ArrowIndi.svelte';
 
 	let primaryColor;
@@ -39,7 +39,7 @@
 			/>
 		</div>
 		{#if isExtended}
-			<div class="mobileNavMenuContainer" transition:fly={{ y: '-30%', duration: 100 }} />
+			<div class="mobileNavMenuContainer" style="border-color: {primaryColor};" transition:scale={{ x: '-10%', y: '-30%', duration: 100 }} />
 		{/if}
 	</div>
 {/if}
@@ -47,7 +47,7 @@
 <style>
 	.mobileNavMenuContainer {
 		position: absolute;
-		top: 8.4375%;
+		top: 8.8%;
 		left: 1.111111111%;
 		width: 97.777777778%;
 		height: 34.21875%;
@@ -72,5 +72,6 @@
 		height: 7.96875%;
 		border: solid 1px #6100ff;
 		transition: all linear 0.1s;
+        z-index: 200;
 	}
 </style>
