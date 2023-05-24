@@ -36,6 +36,7 @@
 <svg
 	width={size}
 	height={size}
+	class="deco"
 	style="position: absolute; {style}"
 	viewBox="0 0 300 318"
 	fill="none"

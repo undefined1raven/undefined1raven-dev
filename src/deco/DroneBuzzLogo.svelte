@@ -34,7 +34,7 @@
     export { size, monochrome, style, animated }
 </script>
 
-<svg width="{size}" height="{size}" style="position: absolute; {style}" viewBox="0 0 86 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg class="deco" width="{size}" height="{size}" style="position: absolute; {style}" viewBox="0 0 86 84" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_8_1080)">
 <mask id="mask0_8_1080" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="84" height="84">
 <path d="M83.9228 0.338028H0.746582V83.5143H83.9228V0.338028Z" fill="white"/>

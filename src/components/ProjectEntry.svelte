@@ -146,8 +146,9 @@
 				><Label
 					show={contentHash[selectedProjectID].appURL === null}
 					color="#444"
-					top="72%"
+					top="{isMobile() ? '60%' : '72%'}"
 					desktopFont="14px"
+					verticalFont="10px"
 					text="Available during hardware tests only"
 				/></Button
 			></a
