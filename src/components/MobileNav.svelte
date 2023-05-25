@@ -91,7 +91,7 @@
 					top="69.406392694%"
 					color={primaryColor}
 					borderColor={primaryColor}
-					label="About Me"
+					label="About Me & Contact"
 				/>
 			</div>
 		{/if}

@@ -3,14 +3,17 @@
 	import Label from '../components/Label.svelte';
 	import Button from '../components/Button.svelte';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import ProjectEntry from '../components/ProjectEntry.svelte';
 	import isMobile from '../fn/isMobile';
 	import SourceCodeSnippetDock from '../components/SourceCodeSnippetDock.svelte';
 	import MobileNav from '../components/MobileNav.svelte';
 	import globalTheme from '../stores/globalTheme';
 	import Nav from '../components/Nav.svelte';
+	import IntroSeq from '../components/IntroSeq.svelte';
 
 	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
+	let windowID = 'projects'; // projects || skills || contact
 
 	onMount(() => {
 		globalTheme.subscribe((theme) => {
@@ -18,92 +21,28 @@
 		});
 	});
 
-	let iniAniDecoShowArr = [false, false, false, false, false];
 	let introFinished = false;
-
-	onMount(() => {
-		setTimeout(() => {
-			iniAniDecoShowArr[0] = true;
-		}, 100);
-		setTimeout(() => {
-			iniAniDecoShowArr[1] = true;
-		}, 200);
-		setTimeout(() => {
-			iniAniDecoShowArr[2] = true;
-		}, 300);
-		setTimeout(() => {
-			iniAniDecoShowArr[3] = true;
-		}, 400);
-		setTimeout(() => {
-			iniAniDecoShowArr.forEach((deco, ix) => {
-				iniAniDecoShowArr[ix] = false;
-			});
-			introFinished = true;
-		}, 800);
-	});
 </script>
 
 <div id="root">
-	<Logo id="mainLogo" color="#2400ff" size="30vh" show={iniAniDecoShowArr[3]} />
-	<Logo
-		id="mainLogo"
-		color="#11007C"
-		size="30vh"
-		show={iniAniDecoShowArr[2] && !isMobile()}
-		style="left: calc(25.833333333% + 8%);"
+	<IntroSeq
+		on:introFinished={() => {
+			introFinished = true;
+		}}
 	/>
-	<Logo
-		id="mainLogo"
-		color="#11007C"
-		size="30vh"
-		show={iniAniDecoShowArr[1] && !isMobile()}
-		style="left: calc(9.479166667% + 8%);"
-	/>
-	<Logo
-		id="mainLogo"
-		color="#11007C"
-		size="30vh"
-		show={iniAniDecoShowArr[0] && !isMobile()}
-		style="left: calc(-6.770833333% + 8%);"
-	/>
-	<Label
-		className="introText"
-		text="[raven@axq]>Link Established with host [xx.xvx.xxs.xa]"
-		color="#2400FF"
-		show={iniAniDecoShowArr[0]}
-		top="2%"
-		horizontalFont="5px"
-		desktopFont="15px"
-	/>
-	<Label
-		className="introText"
-		text="[raven@axq]>[Requesting Deep Storage Link]"
-		color="#2400FF"
-		show={iniAniDecoShowArr[1]}
-		top="5%"
-		horizontalFont="5px"
-		desktopFont="15px"
-	/>
-	<Label
-		className="introText"
-		text="[raven@axq]>[Running ini seq]"
-		color="#2400FF"
-		show={iniAniDecoShowArr[2]}
-		top="8%"
-		horizontalFont="5px"
-		desktopFont="15px"
-	/>
-	<Label
-		className="introText"
-		text="[raven@axq]>[Loaded]"
-		color="#2400FF"
-		show={iniAniDecoShowArr[3]}
-		horizontalFont="5px"
-		top="11%"
-		desktopFont="15px"
-	/>
-	<ProjectEntry show={introFinished} />
+	{#if windowID == 'projects'}
+		<ProjectEntry show={introFinished} />
+	{/if}
 	{#if introFinished}
+		<div
+			transition:fade={{ duration: 150 }}
+			id="gradientBkg"
+			style="background: radial-gradient(
+			60.7% 60.73% at 50% 24.65%,
+			{lglobalTheme.gradientColorPrimary} 0%,
+			{lglobalTheme.gradientColorSecondary} 100%
+			); transition: background ease-in-out 0.2s;"
+		/>
 		<Nav primaryColor={lglobalTheme.primary} />
 		<MobileNav secondaryColor={lglobalTheme.secondary} primaryColor={lglobalTheme.primary} />
 	{/if}
@@ -117,6 +56,18 @@
 <style>
 	:global(.introText) {
 		letter-spacing: 0.1vh;
+	}
+	#gradientBkg {
+		position: absolute;
+		top: 0%;
+		left: 0%;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(
+			60.7% 60.73% at 50% 24.65%,
+			rgba(97, 0, 220, 0.2) 0%,
+			rgba(53, 0, 122, 0.1) 100%
+		);
 	}
 	:global(#mainLogo) {
 		position: absolute;

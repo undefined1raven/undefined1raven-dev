@@ -14,24 +14,72 @@
 	import screenSize from '../stores/screenSize';
 	import isMobile from '../fn/isMobile';
 	import globalTheme from '../stores/globalTheme';
+	import { touchStart, touchMove, touchEnd } from '../stores/touchGestures';
 	let show;
 	let lscreenSize;
 	let refreshAni; //triggers refresh animation on the source code extract button deco
+
+	let ltouchStart = { x: 0, y: 0 };
+	let ltouchMove = { x: 0, y: 0 };
+	let ltouchEnd = { x: 0, y: 0 };
 
 	onMount(() => {
 		screenSize.subscribe((val) => {
 			lscreenSize = val;
 		});
+		touchStart.subscribe((touches) => {
+			ltouchStart = { x: touches[0].clientX, y: touches[0].clientY };
+		});
+		touchMove.subscribe((touches) => {
+			ltouchMove = { x: touches[0].clientX, y: touches[0].clientY };
+		});
+		touchEnd.subscribe((touches) => {
+			if (touches.length > 0) {
+				ltouchEnd = { x: touches[0].clientX, y: touches[0].clientY };
+			}
+			onTouchMoveUpdate();
+		});
 	});
 
-	function updateGlobalTheme(selectedProjectID){
-		globalTheme.set({primary: contentHash[selectedProjectID].themeColorPrimary, secondary: contentHash[selectedProjectID].themeColorSecondary});
+	function onTouchMoveUpdate() {
+		let sideScrollThreshold = 0.4 * document.documentElement.clientWidth;
+		let xTouchDelta = ltouchMove.x - ltouchStart.x;
+		if (Math.abs(xTouchDelta) > sideScrollThreshold) {
+			if (xTouchDelta > 0) {
+				if (selectedProjectIndex - 1 < 0) {
+					//index underflow protection
+					selectedProjectIndex = projectIndexArray.length - 1;
+				} else {
+					selectedProjectIndex--;
+				}
+			} else {
+				if (selectedProjectIndex + 1 > projectIndexArray.length - 1) {
+					//index overflow protection
+					selectedProjectIndex = 0;
+				} else {
+					selectedProjectIndex++;
+				}
+			}
+		}
+	}
+
+	$: selectedProjectID = projectIndexArray[selectedProjectIndex];
+
+	function updateGlobalTheme(selectedProjectID) {
+		globalTheme.set({
+			primary: contentHash[selectedProjectID].themeColorPrimary,
+			secondary: contentHash[selectedProjectID].themeColorSecondary,
+			gradientColorPrimary: contentHash[selectedProjectID].gradientColorPrimary,
+			gradientColorSecondary: contentHash[selectedProjectID].gradientColorSecondary
+		});
 	}
 
 	$: updateGlobalTheme(selectedProjectID);
 
 	let sourceCodeSnippetSource = 0;
-	let selectedProjectID = 'RingRelay';
+	var selectedProjectID = 'RingRelay';
+	let projectIndexArray = ['RingRelay', 'ProjectEagle', 'DroneBuzz'];
+	let selectedProjectIndex = 0;
 	let contentHash = {
 		RingRelay: {
 			title: 'RING RELAY',
@@ -76,16 +124,18 @@
 	export { show };
 </script>
 
+<svelte:window
+	on:touchend={(e) => {
+		touchEnd.set(e.touches);
+	}}
+	on:touchmove={(e) => {
+		touchMove.set(e.touches);
+	}}
+	on:touchstart={(e) => {
+		touchStart.set(e.touches);
+	}}
+/>
 {#if show}
-	<div
-		transition:fade={{ duration: 150 }}
-		id="gradientBkg"
-		style="background: radial-gradient(
-		60.7% 60.73% at 50% 24.65%,
-		{contentHash[selectedProjectID].gradientColorPrimary} 0%,
-		{contentHash[selectedProjectID].gradientColorSecondary} 100%
-	); transition: background ease-in-out 0.2s;"
-	/>
 	<div class="projectOverviewContainer" transition:fly={{ y: '-10%', duration: 150, delay: 150 }}>
 		<div class="logoContainer" transition:fade={{ duration: 100 }}>
 			<svelte:component
@@ -146,7 +196,7 @@
 				><Label
 					show={contentHash[selectedProjectID].appURL === null}
 					color="#444"
-					top="{isMobile() ? '60%' : '72%'}"
+					top={isMobile() ? '60%' : '72%'}
 					desktopFont="14px"
 					verticalFont="10px"
 					text="Available during hardware tests only"
@@ -278,18 +328,6 @@
 		width: 45.729166667%;
 		height: 66.851851852%;
 		z-index: 50;
-	}
-	#gradientBkg {
-		position: absolute;
-		top: 0%;
-		left: 0%;
-		width: 100%;
-		height: 100%;
-		background: radial-gradient(
-			60.7% 60.73% at 50% 24.65%,
-			rgba(97, 0, 220, 0.2) 0%,
-			rgba(53, 0, 122, 0.1) 100%
-		);
 	}
 	@media only screen and (max-width: 1300px) and (min-height: 550px) {
 		.projectOverviewContainer {

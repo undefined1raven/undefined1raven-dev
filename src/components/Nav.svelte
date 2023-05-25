@@ -52,7 +52,7 @@
 		desktopFont="20px"
 	/>
 	<Button
-		label="Contact"
+		label="Skills"
 		top="66.41221374%"
 		color={primaryColor}
 		borderColor={primaryColor}
@@ -62,7 +62,7 @@
 		desktopFont="20px"
 	/>
 	<Button
-		label="Skills"
+		label="About Me & Contact"
 		top="86.259541985%"
 		color={primaryColor}
 		borderColor={primaryColor}
