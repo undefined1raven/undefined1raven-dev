@@ -15,6 +15,7 @@
 	import isMobile from '../fn/isMobile';
 	import globalTheme from '../stores/globalTheme';
 	import { touchStart, touchMove, touchEnd } from '../stores/touchGestures';
+	import { RangeScaler } from '../fn/RangeScaler';
 	let show;
 	let lscreenSize;
 	let refreshAni; //triggers refresh animation on the source code extract button deco
@@ -22,6 +23,8 @@
 	let ltouchStart = { x: 0, y: 0 };
 	let ltouchMove = { x: 0, y: 0 };
 	let ltouchEnd = { x: 0, y: 0 };
+	let nextProjectPreview = false;
+	let transitionOverlayBackdropFilterBlurValue = 0;
 
 	onMount(() => {
 		screenSize.subscribe((val) => {
@@ -31,35 +34,55 @@
 			ltouchStart = { x: touches[0].clientX, y: touches[0].clientY };
 		});
 		touchMove.subscribe((touches) => {
+			let sideScrollThreshold = 0.32 * document.documentElement.clientWidth;
+			let xTouchDelta = ltouchMove.x - ltouchStart.x;
+			let swipeCompletionPercentage = (sideScrollThreshold * 100) / Math.abs(xTouchDelta);
 			ltouchMove = { x: touches[0].clientX, y: touches[0].clientY };
+			transitionOverlayBackdropFilterBlurValue = RangeScaler(
+				swipeCompletionPercentage,
+				0,
+				100,
+				0,
+				14
+			);
+			if (!nextProjectPreview && Math.abs(xTouchDelta) > 0) {
+				nextProjectPreview = true;
+				swipeAction(xTouchDelta);
+			}
 		});
 		touchEnd.subscribe((touches) => {
 			if (touches.length > 0) {
 				ltouchEnd = { x: touches[0].clientX, y: touches[0].clientY };
 			}
 			onTouchMoveUpdate();
+			nextProjectPreview = false;
+			transitionOverlayBackdropFilterBlurValue = 0;
 		});
 	});
 
+	function swipeAction(xTouchDelta) {
+		if (xTouchDelta > 0) {
+			if (selectedProjectIndex - 1 < 0) {
+				//index underflow protection
+				selectedProjectIndex = projectIndexArray.length - 1;
+			} else {
+				selectedProjectIndex--;
+			}
+		} else {
+			if (selectedProjectIndex + 1 > projectIndexArray.length - 1) {
+				//index overflow protection
+				selectedProjectIndex = 0;
+			} else {
+				selectedProjectIndex++;
+			}
+		}
+	}
+
 	function onTouchMoveUpdate() {
-		let sideScrollThreshold = 0.4 * document.documentElement.clientWidth;
+		let sideScrollThreshold = 0.32 * document.documentElement.clientWidth;
 		let xTouchDelta = ltouchMove.x - ltouchStart.x;
 		if (Math.abs(xTouchDelta) > sideScrollThreshold) {
-			if (xTouchDelta > 0) {
-				if (selectedProjectIndex - 1 < 0) {
-					//index underflow protection
-					selectedProjectIndex = projectIndexArray.length - 1;
-				} else {
-					selectedProjectIndex--;
-				}
-			} else {
-				if (selectedProjectIndex + 1 > projectIndexArray.length - 1) {
-					//index overflow protection
-					selectedProjectIndex = 0;
-				} else {
-					selectedProjectIndex++;
-				}
-			}
+			swipeAction(xTouchDelta);
 		}
 	}
 
@@ -287,9 +310,24 @@
 			/></Button
 		>
 	</div>
+	{#if transitionOverlayBackdropFilterBlurValue > 0}
+		<div
+			id="blurTransitionOverlay"
+			style="backdrop-filter: blur({transitionOverlayBackdropFilterBlurValue}px);"
+		/>
+	{/if}
 {/if}
 
 <style>
+	#blurTransitionOverlay {
+		position: absolute;
+		top: 0%;
+		left: 0%;
+		width: 100%;
+		height: 100%;
+		backdrop-filter: blur(2px);
+		z-index: 155;
+	}
 	:global(.transitionAll2) {
 		transition: all linear 0.3s;
 	}
