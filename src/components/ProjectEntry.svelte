@@ -45,7 +45,7 @@
 				0,
 				14
 			);
-			if (!nextProjectPreview && Math.abs(xTouchDelta) > 0) {
+			if (!nextProjectPreview && Math.abs(xTouchDelta) > sideScrollThreshold / 5) {
 				nextProjectPreview = true;
 				swipeAction(xTouchDelta);
 			}
@@ -54,8 +54,12 @@
 			if (touches.length > 0) {
 				ltouchEnd = { x: touches[0].clientX, y: touches[0].clientY };
 			}
-			onTouchMoveUpdate();
 			nextProjectPreview = false;
+			let sideScrollCancelThreshold = 0.15 * document.documentElement.clientWidth;
+			let xTouchDelta = ltouchMove.x - ltouchStart.x;
+			if(Math.abs(xTouchDelta) < sideScrollCancelThreshold){
+				swipeAction(xTouchDelta * -1);
+			}
 			transitionOverlayBackdropFilterBlurValue = 0;
 		});
 	});
@@ -78,13 +82,7 @@
 		}
 	}
 
-	function onTouchMoveUpdate() {
-		let sideScrollThreshold = 0.32 * document.documentElement.clientWidth;
-		let xTouchDelta = ltouchMove.x - ltouchStart.x;
-		if (Math.abs(xTouchDelta) > sideScrollThreshold) {
-			swipeAction(xTouchDelta);
-		}
-	}
+
 
 	$: selectedProjectID = projectIndexArray[selectedProjectIndex];
 
