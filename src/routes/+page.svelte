@@ -11,6 +11,7 @@
 	import globalTheme from '../stores/globalTheme';
 	import Nav from '../components/Nav.svelte';
 	import IntroSeq from '../components/IntroSeq.svelte';
+	import Skills from '../components/Skills.svelte';
 
 	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
 	let windowID = 'projects'; // projects || skills || contact
@@ -33,6 +34,10 @@
 	{#if windowID == 'projects'}
 		<ProjectEntry show={introFinished} />
 	{/if}
+	{#if windowID == 'skills'}
+		<Skills show={introFinished} />
+	{/if}
+
 	{#if introFinished}
 		<div
 			transition:fade={{ duration: 150 }}
@@ -43,7 +48,12 @@
 			{lglobalTheme.gradientColorSecondary} 100%
 			); transition: background ease-in-out 0.2s;"
 		/>
-		<Nav primaryColor={lglobalTheme.primary} />
+		<Nav
+			on:onSelectionSelected={(e) => {
+				windowID = e.detail;
+			}}
+			primaryColor={lglobalTheme.primary}
+		/>
 		<MobileNav secondaryColor={lglobalTheme.secondary} primaryColor={lglobalTheme.primary} />
 	{/if}
 	<Label

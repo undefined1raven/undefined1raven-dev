@@ -6,7 +6,8 @@
 	import screenSize from '../stores/screenSize';
 	import isMobile from '../fn/isMobile';
 	import { onMount } from 'svelte';
-
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
 	let lscreenSize;
 	let isMinified = false;
 
@@ -24,12 +25,20 @@
 		});
 	});
 
+	function onSectionSelected(SID) {
+		dispatch('onSelectionSelected', SID);
+	}
+
 	let primaryColor = '#2400FF';
 	let secondaryColor = '#1300AA';
 	export { primaryColor, secondaryColor };
 </script>
 
-<div class="navContainer" transition:fly={{ x: '-20%', duration: 200, delay: 150 }} style="display: {isMobile() ? 'none' : 'flex'};">
+<div
+	class="navContainer"
+	transition:fly={{ x: '-20%', duration: 200, delay: 150 }}
+	style="display: {isMobile() ? 'none' : 'flex'};"
+>
 	<div class="titleContainer" style="border-color: {primaryColor};">
 		<Label
 			text={isMinified ? '' : 'undefined1raven _dev_'}
@@ -42,6 +51,7 @@
 		<LogoMin size="7vh" style="left: {isMinified ? 'auto' : '5%'};" color={primaryColor} />
 	</div>
 	<Button
+		onClick={() => onSectionSelected('projects')}
 		label="Projects"
 		top="46.564885496%"
 		color={primaryColor}
@@ -52,6 +62,7 @@
 		desktopFont="20px"
 	/>
 	<Button
+		onClick={() => onSectionSelected('skills')}
 		label="Skills"
 		top="66.41221374%"
 		color={primaryColor}
@@ -62,6 +73,7 @@
 		desktopFont="20px"
 	/>
 	<Button
+		onClick={() => onSectionSelected('contact')}
 		label="About Me & Contact"
 		top="86.259541985%"
 		color={primaryColor}
