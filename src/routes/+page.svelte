@@ -11,6 +11,7 @@
 	import globalTheme from '../stores/globalTheme';
 	import Nav from '../components/Nav.svelte';
 	import IntroSeq from '../components/IntroSeq.svelte';
+	import ContactDock from '../components/ContactDock.svelte';
 	import Skills from '../components/Skills.svelte';
 
 	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
@@ -26,35 +27,46 @@
 </script>
 
 <div id="root">
-	<IntroSeq
-		on:introFinished={() => {
-			introFinished = true;
-		}}
-	/>
-	{#if windowID == 'projects'}
-		<ProjectEntry show={introFinished} />
+	{#if !introFinished}
+		<IntroSeq
+			on:introFinished={() => {
+				introFinished = true;
+			}}
+		/>
 	{/if}
-	{#if windowID == 'skills'}
-		<Skills show={introFinished} />
-	{/if}
-
 	{#if introFinished}
 		<div
 			transition:fade={{ duration: 150 }}
 			id="gradientBkg"
 			style="background: radial-gradient(
-			60.7% 60.73% at 50% 24.65%,
-			{lglobalTheme.gradientColorPrimary} 0%,
-			{lglobalTheme.gradientColorSecondary} 100%
-			); transition: background ease-in-out 0.2s;"
+	60.7% 60.73% at 50% 24.65%,
+	{lglobalTheme.gradientColorPrimary} 0%,
+	{lglobalTheme.gradientColorSecondary} 100%
+	); transition: background ease-in-out 0.2s;"
 		/>
+	{/if}
+	{#if windowID == 'projects'}
+		<ProjectEntry show={introFinished} />
+	{/if}
+	{#if windowID == 'skills'}
+		<Skills show={introFinished && windowID == 'skills'} />
+	{/if}
+	<ContactDock show={introFinished} color={lglobalTheme.primary} />
+
+	{#if introFinished}
 		<Nav
 			on:onSelectionSelected={(e) => {
 				windowID = e.detail;
 			}}
 			primaryColor={lglobalTheme.primary}
 		/>
-		<MobileNav secondaryColor={lglobalTheme.secondary} primaryColor={lglobalTheme.primary} />
+		<MobileNav
+			on:onSelectionSelected={(e) => {
+				windowID = e.detail;
+			}}
+			secondaryColor={lglobalTheme.secondary}
+			primaryColor={lglobalTheme.primary}
+		/>
 	{/if}
 	<Label
 		text="[This page is currently under active dev]"

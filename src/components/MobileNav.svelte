@@ -4,7 +4,8 @@
 	import { fly, scale } from 'svelte/transition';
 	import ArrowIndi from '../deco/ArrowIndi.svelte';
 	import Button from './Button.svelte';
-
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
 	let primaryColor;
 	let secondaryColor;
 	let isExtended = false;
@@ -58,6 +59,9 @@
 				transition:scale={{ x: '-10%', y: '-30%', duration: 100 }}
 			>
 				<Button
+					onClick={() => {
+						dispatch('onSelectionSelected', 'projects');
+					}}
 					className="mobileNavMenuComponent"
 					left="9.943181818%"
 					width="80.397727273%"
@@ -70,6 +74,9 @@
 					label="Projects"
 				/>
 				<Button
+					onClick={() => {
+						dispatch('onSelectionSelected', 'skills');
+					}}
 					className="mobileNavMenuComponent"
 					left="9.943181818%"
 					width="80.397727273%"

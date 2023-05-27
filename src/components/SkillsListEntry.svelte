@@ -1,34 +1,47 @@
 <script>
 	import { onMount } from 'svelte';
 	import Label from './Label.svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { fly, scale, fade } from 'svelte/transition';
+	import isMobile from '../fn/isMobile';
+	const dispatch = createEventDispatcher();
 	let label = '';
 	let logo;
 	let logoColor = '#6100FF';
 	let ix = 0;
 	let logoSize = '4vh';
+	let labelColor = '#FFF';
 
-	onMount(() => {
-		console.log(JSON.stringify(logoColor));
-	});
-
-	export { label, logo, logoSize, ix, logoColor };
+	export { label, logo, logoSize, ix, logoColor, labelColor };
 </script>
 
 <div
+	on:click={() => {
+		dispatch('listItemOnClick', label);
+	}}
 	class="skillEntryContainer"
 	style="border-color: {logoColor}"
-	transition:fly={{ duration: 150, delay: (ix + 1) * 50, x: '-30%', y: '-50%' }}
+	transition:fly={{
+		duration: isMobile() ? 50 : 150,
+		delay: isMobile() ? 10 : (ix + 1) * 50,
+		x: '-30%',
+		y: '-50%'
+	}}
 >
 	<div class="labelContainer" transition:fade={{ duration: 50 }}>
-		<Label color="#FFF" desktopFont="20px" text={label} />
+		<Label style="text-align: start;" color={labelColor} verticalFont="17px" desktopFont="20px" text={label} />
 	</div>
 	<div
 		class="skillDeco"
 		style="position: absolute; width: {logoSize}; height: {logoSize}"
 		transition:scale={{ duration: 200 }}
 	>
-		<svelte:component this={logo} style="width: {logoSize}; height: {logoSize};" color={logoColor ? logoColor : '#6100FF'} size={'100%'} />
+		<svelte:component
+			this={logo}
+			style="width: {logoSize}; height: {logoSize};"
+			color={logoColor ? logoColor : '#6100FF'}
+			size={'100%'}
+		/>
 	</div>
 </div>
 
@@ -54,7 +67,15 @@
 		align-items: center;
 		justify-content: center;
 		height: 13.202614379%;
-		width: 100%;
+		width: 99.5%;
 		border: solid 1px #6100ff;
+	}
+	@media only screen and (max-width: 1000px) and (min-height: 600px) {
+		.skillEntryContainer {
+			height: 10%;
+		}
+		.labelContainer {
+			left: 20%;
+		}
 	}
 </style>

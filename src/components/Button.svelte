@@ -141,10 +141,10 @@
 	on:touchend={checkClick}
 	on:click={onClick}
 	on:mouseenter={() => {
-		lbackgroundColor = `${backgroundColor.substring(0, backgroundColor.length - 2)}30`;
+		lbackgroundColor = `${backgroundColor?.substring(0, backgroundColor.length - 2)}30`;
 	}}
 	on:mouseleave={() => {
-		lbackgroundColor = `${backgroundColor.substring(0, backgroundColor.length - 2)}00`;
+		lbackgroundColor = `${backgroundColor?.substring(0, backgroundColor.length - 2)}00`;
 	}}
 	class={`button ${iu(className, '')}`}
 	style="

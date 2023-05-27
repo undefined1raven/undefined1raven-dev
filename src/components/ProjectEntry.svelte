@@ -266,7 +266,6 @@
 		}}
 		{selectedProjectID}
 	/>
-	<ContactDock color={contentHash[selectedProjectID].themeColorPrimary} />
 	<SourceCodeSnippetDock
 		color={contentHash[selectedProjectID].themeColorPrimary}
 		source={`${selectedProjectID}.${sourceCodeSnippetSource}`}

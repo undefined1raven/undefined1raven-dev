@@ -11,54 +11,97 @@
 	import SocketIoLogo from '../deco/SocketIOLogo.svelte';
 	import GitLogo from '../deco/GitLogo.svelte';
 	import SnykLogo from '../deco/SnykLogo.svelte';
-    import GitGuardianLogo from '../deco/GitGuardianLogo.svelte';
-    import GithubLogo from '../deco/githubLogo.svelte';
-    import MongoDbLogo from '../deco/MongoDB_Logo.svelte';
+	import GitGuardianLogo from '../deco/GitGuardianLogo.svelte';
+	import GithubLogo from '../deco/githubLogo.svelte';
+	import MongoDbLogo from '../deco/MongoDB_Logo.svelte';
 	import globalTheme from '../stores/globalTheme';
-    import FirebaseRealtimeLogo from '../deco/FirebaseRealtimeLogo.svelte';
-    import PlanetScaleLogo from '../deco/PlanetScaleLogo.svelte';
-	import { onMount } from 'svelte';
+	import FirebaseRealtimeLogo from '../deco/FirebaseRealtimeLogo.svelte';
+	import PlanetScaleLogo from '../deco/PlanetScaleLogo.svelte';
+	import FrontendLogo from '../deco/FrontendLogo.svelte';
+	import SecurityLogo from '../deco/SecurityLogo.svelte';
+	import DevOpsLogo from '../deco/DevOpsLogo.svelte';
+	import DatabasesLogo from '../deco/DatabasesLogo.svelte';
+	import BackendLogo from '../deco/BackendLogo.svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import isMobile from '../fn/isMobile';
 
 	let lglobalTheme = {};
+
+	let expandState = {
+		'Front-End': false,
+		'Back-End': false,
+		'Dev Ops': false,
+		Security: false,
+		Databases: false
+	}; //used for mobile version
+
+	var sourceArray = [];
+
+	function assessSkillSetExtension(SID, SSID) {
+		const skillArray = skillSetHash[SSID];
+		if (expandState[SID]) {
+			for (let ix = 0; ix < skillArray.length; ix++) {
+				sourceArray.push(skillArray[ix]);
+			}
+		}
+	}
+
+	function genSourceArray() {
+		sourceArray = [];
+		sourceArray.push({ name: 'Front-End', logo: FrontendLogo });
+		assessSkillSetExtension('Front-End', 'frontend');
+		sourceArray.push({ name: 'Back-End', logo: BackendLogo });
+		assessSkillSetExtension('Back-End', 'backend');
+		sourceArray.push({ name: 'Security', logo: SecurityLogo });
+		assessSkillSetExtension('Security', 'security');
+		sourceArray.push({ name: 'Dev Ops', logo: DevOpsLogo });
+		assessSkillSetExtension('Dev Ops', 'ops');
+		sourceArray.push({ name: 'Databases', logo: DatabasesLogo });
+		assessSkillSetExtension('Databases', 'databases');
+	}
 
 	onMount(() => {
 		globalTheme.subscribe((theme) => {
 			lglobalTheme = theme;
 		});
+		sourceArray = skillSetHash[selectedSkillSet];
+		if (isMobile()) {
+			genSourceArray();
+		}
 	});
 
 	let show = false;
 
-	let selectedSkillSet = 'frontend';
+	var selectedSkillSet = 'frontend';
 
-	let frontendSkills = [
+	var frontendSkills = [
 		{ name: 'React', logo: ReactLogo },
 		{ name: 'Svelte / Svelte Kit', logo: SvelteLogo },
 		{ name: 'Vue / Nuxt', logo: VueLogo },
 		{ name: 'HTML / JS / CSS', logo: JS_CSS_Logos }
 	];
-	let backendSkills = [
+	var backendSkills = [
 		{ name: 'Express', logo: GenericLogo },
 		{ name: 'Vercel Serverless', logo: VercelLogo },
 		{ name: 'Socket.IO', logo: SocketIoLogo },
 		{ name: 'Multi-factor Auth', logo: GenericLogo }
 	];
-	let securitySkills = [
+	var securitySkills = [
 		{ name: 'Snyk', logo: SnykLogo },
 		{ name: 'Git Guardian', logo: GitGuardianLogo },
 		{ name: 'Using Env Variables', logo: GenericLogo }
 	];
-	let devOpsSkills = [
+	var devOpsSkills = [
 		{ name: 'Github', logo: GithubLogo },
 		{ name: 'Git', logo: GitLogo },
 		{ name: 'Using Product-Specific Dashboards', logo: GenericLogo }
 	];
-	let databasesSkills = [
+	var databasesSkills = [
 		{ name: 'Mongo DB', logo: MongoDbLogo },
 		{ name: 'Firebase Realtime', logo: FirebaseRealtimeLogo },
 		{ name: 'Planet Scale', logo: PlanetScaleLogo }
 	];
-	let skillSetHash = {
+	var skillSetHash = {
 		frontend: frontendSkills,
 		backend: backendSkills,
 		security: securitySkills,
@@ -74,99 +117,119 @@
 		}, 40);
 	}
 
+	$: genSourceArray(expandState);
+
+	function listItemOnClickHandler(e) {
+		if (expandState[e.detail] != undefined) {
+			expandState[e.detail] = !expandState[e.detail];
+		}
+	}
+
+    onDestroy(() => {
+        sourceArray = [];
+    })
+
 	export { show };
 </script>
 
 {#if show}
 	<div class="skillsContainer">
-		<div
-			class="skillsMenuContainer"
-			transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}
-		>
-			<Button
-				onClick={() => {
-					updateDisplayedSkillSet('frontend');
-				}}
-				label="Front-end"
-				color={selectedSkillSet == 'frontend' ? '#FFF' : `${lglobalTheme.primary}`}
-				width="100%"
-				height="20%"
-				borderColor={lglobalTheme.primary}
-				backgroundColor={selectedSkillSet == 'frontend' ? '#6100FF40' : '#6100FF00'}
-				desktopFont="20px"
-				borderRadius="5px"
-			/>
-			<Button
-				onClick={() => {
-					updateDisplayedSkillSet('backend');
-				}}
-				label="Back-end"
-				top="26.666666667%"
-				color={selectedSkillSet == 'backend' ? '#FFF' : `${lglobalTheme.primary}`}
-				width="100%"
-				height="20%"
-				borderColor={lglobalTheme.primary}
-				backgroundColor={selectedSkillSet == 'backend' ? '#6100FF40' : '#6100FF00'}
-				desktopFont="20px"
-				borderRadius="5px"
-			/>
-			<Button
-				onClick={() => {
-					updateDisplayedSkillSet('security');
-				}}
-				label="Security"
-				top="53.333333333%"
-				color={selectedSkillSet == 'security' ? '#FFF' : `${lglobalTheme.primary}`}
-				width="100%"
-				height="20%"
-				borderColor={lglobalTheme.primary}
-				backgroundColor={selectedSkillSet == 'security' ? `${lglobalTheme.primary}20` : '#6100FF00'}
-				desktopFont="20px"
-				borderRadius="5px"
-			/>
-			<Button
-				label="Dev Ops"
-				top="80%"
-				onClick={() => {
-					updateDisplayedSkillSet('ops');
-				}}
-				color={selectedSkillSet == 'ops' ? '#FFF' : `${lglobalTheme.primary}`}
-				width="100%"
-				height="20%"
-				borderColor={lglobalTheme.primary}
-				backgroundColor={selectedSkillSet == 'ops' ? `${lglobalTheme.primary}20` : '#6100FF00'}
-				desktopFont="20px"
-				borderRadius="5px"
-			/>
-			<Button
-				label="Databases"
-				top="107%"
-				onClick={() => {
-					updateDisplayedSkillSet('databases');
-				}}
-				color={selectedSkillSet == 'databases' ? '#FFF' : `${lglobalTheme.primary}`}
-				width="100%"
-				height="20%"
-				borderColor={lglobalTheme.primary}
-				backgroundColor={selectedSkillSet == 'databases'
-					? `${lglobalTheme.primary}20`
-					: '#6100FF00'}
-				desktopFont="20px"
-				borderRadius="5px"
-			/>
-		</div>
+		{#if !isMobile()}
+			<div
+				class="skillsMenuContainer"
+				transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}
+			>
+				<Button
+					onClick={() => {
+						updateDisplayedSkillSet('frontend');
+					}}
+					label="Front-end"
+					color={selectedSkillSet == 'frontend' ? '#FFF' : `${lglobalTheme.primary}`}
+					width="100%"
+					height="20%"
+					borderColor={lglobalTheme.primary}
+					backgroundColor={selectedSkillSet == 'frontend' ? '#6100FF40' : '#6100FF00'}
+					desktopFont="20px"
+					borderRadius="5px"
+				/>
+				<Button
+					onClick={() => {
+						updateDisplayedSkillSet('backend');
+					}}
+					label="Back-end"
+					top="26.666666667%"
+					color={selectedSkillSet == 'backend' ? '#FFF' : `${lglobalTheme.primary}`}
+					width="100%"
+					height="20%"
+					borderColor={lglobalTheme.primary}
+					backgroundColor={selectedSkillSet == 'backend' ? '#6100FF40' : '#6100FF00'}
+					desktopFont="20px"
+					borderRadius="5px"
+				/>
+				<Button
+					onClick={() => {
+						updateDisplayedSkillSet('security');
+					}}
+					label="Security"
+					top="53.333333333%"
+					color={selectedSkillSet == 'security' ? '#FFF' : `${lglobalTheme.primary}`}
+					width="100%"
+					height="20%"
+					borderColor={lglobalTheme.primary}
+					backgroundColor={selectedSkillSet == 'security'
+						? `${lglobalTheme.primary}20`
+						: '#6100FF00'}
+					desktopFont="20px"
+					borderRadius="5px"
+				/>
+				<Button
+					label="Dev Ops"
+					top="80%"
+					onClick={() => {
+						updateDisplayedSkillSet('ops');
+					}}
+					color={selectedSkillSet == 'ops' ? '#FFF' : `${lglobalTheme.primary}`}
+					width="100%"
+					height="20%"
+					borderColor={lglobalTheme.primary}
+					backgroundColor={selectedSkillSet == 'ops' ? `${lglobalTheme.primary}20` : '#6100FF00'}
+					desktopFont="20px"
+					borderRadius="5px"
+				/>
+				<Button
+					label="Databases"
+					top="107%"
+					onClick={() => {
+						updateDisplayedSkillSet('databases');
+					}}
+					color={selectedSkillSet == 'databases' ? '#FFF' : `${lglobalTheme.primary}`}
+					width="100%"
+					height="20%"
+					borderColor={lglobalTheme.primary}
+					backgroundColor={selectedSkillSet == 'databases'
+						? `${lglobalTheme.primary}20`
+						: '#6100FF00'}
+					desktopFont="20px"
+					borderRadius="5px"
+				/>
+			</div>
+		{/if}
 		<ul
 			class="skillsContainerActual"
 			transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}
 		>
-			{#each skillSetHash[selectedSkillSet] as skill, ix}
-				<SkillsListEntry
-					{ix}
-					logo={skill.logo}
-					logoColor={lglobalTheme.primary}
-					logoSize="6vh"
-					label={skill.name}
-				/>
+			{#each isMobile() ? sourceArray : skillSetHash[selectedSkillSet] as skill, ix}
+				{#if skill.name != 'empty'}
+					<SkillsListEntry
+						on:listItemOnClick={listItemOnClickHandler}
+						{ix}
+						labelColor={expandState[skill.name] != undefined ? '#FFF' : '#AAA'}
+						logo={skill.logo}
+						logoColor={lglobalTheme.primary}
+						logoSize="6vh"
+						label={skill.name}
+					/>
+				{/if}
 			{/each}
 		</ul>
 	</div>
@@ -183,6 +246,11 @@
 		padding: 0;
 		margin: 0;
 		z-index: 5;
+		overflow: scroll;
+	}
+	.skillsContainerActual::-webkit-scrollbar {
+		width: 0vh;
+		height: 0vh;
 	}
 	.skillsMenuContainer {
 		position: absolute;
@@ -191,5 +259,12 @@
 		width: 12.239583333%;
 		height: 20.833333333%;
 		z-index: 7;
+	}
+	@media only screen and (max-width: 1000px) and (min-height: 600px) {
+		.skillsContainerActual {
+			width: 97.777777778%;
+			left: 1.111111111%;
+			height: 87%;
+		}
 	}
 </style>
