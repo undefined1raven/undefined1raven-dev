@@ -12,6 +12,7 @@
 	import Nav from '../components/Nav.svelte';
 	import IntroSeq from '../components/IntroSeq.svelte';
 	import ContactDock from '../components/ContactDock.svelte';
+	import Skills from '../components/Skills.svelte';
 
 	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
 	let windowID = 'projects'; // projects || skills || contact
@@ -53,7 +54,7 @@
 		<ProjectEntry show={introFinished} />
 	{/if}
 	{#if windowID == 'skills'}
-		<!-- <Skills show={introFinished} /> -->
+		<Skills show={true} />
 	{/if}
 
 	<ContactDock show={introFinished} color={lglobalTheme.primary} />
