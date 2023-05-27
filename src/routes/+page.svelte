@@ -20,7 +20,7 @@
 	onMount(() => {
 		if(sessionStorage.getItem('introPlayed') != null){
 			introFinished = false;
-		}else{
+		}else{ 
 			introFinished = true;
 		}
 		globalTheme.subscribe((theme) => {
