@@ -3,8 +3,8 @@
 	import { onMount } from 'svelte';
 	import { createEventDispatcher } from 'svelte';
 	import isMobile from '../fn/isMobile';
-    import Label from './Label.svelte';
-    
+	import Label from './Label.svelte';
+
 	const dispatch = createEventDispatcher();
 
 	let iniAniDecoShowArr = [false, false, false, false, false];
@@ -28,6 +28,7 @@
 				iniAniDecoShowArr[ix] = false;
 			});
 			introFinished = true;
+			sessionStorage.setItem('introPlayed', true);
 			dispatch('introFinished');
 		}, 800);
 	});

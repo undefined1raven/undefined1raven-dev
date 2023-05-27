@@ -121,24 +121,25 @@
 
 	function listItemOnClickHandler(e) {
 		if (expandState[e.detail] != undefined) {
+			for (let key in expandState) {
+				if (key != e.detail) {
+					expandState[key] = false;
+				}
+			}
 			expandState[e.detail] = !expandState[e.detail];
 		}
 	}
 
-    onDestroy(() => {
-        sourceArray = [];
-    })
-
 	export { show };
+	//transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}
+
+	//transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}
 </script>
 
-{#if show}
-	<div class="skillsContainer">
-		{#if !isMobile()}
-			<div
-				class="skillsMenuContainer"
-				transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}
-			>
+<div style="opacity: {show ? 1 : 0};">
+	<div class="skillsContainer" style="opacity: {show ? 1 : 0}">
+		{#if !isMobile() && show}
+			<div class="skillsMenuContainer" transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}>
 				<Button
 					onClick={() => {
 						updateDisplayedSkillSet('frontend');
@@ -214,26 +215,25 @@
 				/>
 			</div>
 		{/if}
-		<ul
-			class="skillsContainerActual"
-			transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}
-		>
-			{#each isMobile() ? sourceArray : skillSetHash[selectedSkillSet] as skill, ix}
-				{#if skill.name != 'empty'}
-					<SkillsListEntry
-						on:listItemOnClick={listItemOnClickHandler}
-						{ix}
-						labelColor={expandState[skill.name] != undefined ? '#FFF' : '#AAA'}
-						logo={skill.logo}
-						logoColor={lglobalTheme.primary}
-						logoSize="6vh"
-						label={skill.name}
-					/>
-				{/if}
-			{/each}
-		</ul>
+		{#if show}
+			<ul class="skillsContainerActual" transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}>
+				{#each isMobile() ? sourceArray : skillSetHash[selectedSkillSet] as skill, ix}
+					{#if skill.name != 'empty' && show}
+						<SkillsListEntry
+							on:listItemOnClick={listItemOnClickHandler}
+							{ix}
+							labelColor={expandState[skill.name] != undefined ? '#FFF' : '#AAA'}
+							logo={skill.logo}
+							logoColor={lglobalTheme.primary}
+							logoSize="6vh"
+							label={skill.name}
+						/>
+					{/if}
+				{/each}
+			</ul>
+		{/if}
 	</div>
-{/if}
+</div>
 
 <style>
 	.skillsContainerActual {

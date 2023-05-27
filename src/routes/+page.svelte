@@ -12,18 +12,22 @@
 	import Nav from '../components/Nav.svelte';
 	import IntroSeq from '../components/IntroSeq.svelte';
 	import ContactDock from '../components/ContactDock.svelte';
-	import Skills from '../components/Skills.svelte';
 
 	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
 	let windowID = 'projects'; // projects || skills || contact
 
 	onMount(() => {
+		if(sessionStorage.getItem('introPlayed') != null){
+			introFinished = false;
+		}else{
+			introFinished = true;
+		}
 		globalTheme.subscribe((theme) => {
 			lglobalTheme = theme;
 		});
 	});
 
-	let introFinished = false;
+	var introFinished = false;
 </script>
 
 <div id="root">
@@ -49,8 +53,9 @@
 		<ProjectEntry show={introFinished} />
 	{/if}
 	{#if windowID == 'skills'}
-		<Skills show={introFinished && windowID == 'skills'} />
+		<!-- <Skills show={introFinished} /> -->
 	{/if}
+
 	<ContactDock show={introFinished} color={lglobalTheme.primary} />
 
 	{#if introFinished}
@@ -63,6 +68,9 @@
 		<MobileNav
 			on:onSelectionSelected={(e) => {
 				windowID = e.detail;
+				if (e.detail === 'skills') {
+					window.location.pathname = '/skills';
+				}
 			}}
 			secondaryColor={lglobalTheme.secondary}
 			primaryColor={lglobalTheme.primary}
