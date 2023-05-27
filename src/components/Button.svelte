@@ -29,9 +29,10 @@
 	const root = document.documentElement;
 	let clientWidth = root.clientWidth;
 	let clientHeight = root.clientHeight;
-
+	let lbackgroundColor;
 	onMount(() => {
 		fontController();
+		lbackgroundColor = backgroundColor;
 	});
 
 	const updateTouchUnix = (tx) => {
@@ -51,6 +52,8 @@
 			}
 		}
 	};
+
+	$: lbackgroundColor = backgroundColor;
 
 	function onResize(e) {
 		clientHeight = root.clientHeight;
@@ -138,10 +141,10 @@
 	on:touchend={checkClick}
 	on:click={onClick}
 	on:mouseenter={() => {
-		backgroundColor = `${color}40`;
+		lbackgroundColor = `${backgroundColor.substring(0, backgroundColor.length - 2)}30`;
 	}}
 	on:mouseleave={() => {
-		backgroundColor = `${color}00`;
+		lbackgroundColor = `${backgroundColor.substring(0, backgroundColor.length - 2)}00`;
 	}}
 	class={`button ${iu(className, '')}`}
 	style="
@@ -152,7 +155,7 @@
         width: {iu(width, 'auto')}; 
         height: {iu(height, 'auto')}; 
         color: {iu(color, '#FFF')}; 
-        background-color: {iu(backgroundColor, '#0500FF00')}; 
+        background-color: {iu(lbackgroundColor, '#0500FF00')}; 
         border: solid 1px {iu(borderColor, '#0500FF')};
         border-radius: {((parseFloat(
 		iu(borderRadius, '0px').substring(0, iu(borderRadius, '0px').length - 2)
