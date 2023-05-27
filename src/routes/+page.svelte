@@ -28,7 +28,7 @@
 		});
 	});
 
-	var introFinished = false;
+	var introFinished = false;  
 </script>
 
 <div id="root">
