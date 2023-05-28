@@ -240,21 +240,6 @@
 				verticalFont="18px"
 			/></a
 		>
-		<Button
-			color={contentHash[selectedProjectID].themeColorPrimary}
-			top={isMobile() ? `${82 + 24}%` : '101.966759003%'}
-			left={isMobile() ? '5%' : '23.348519362%'}
-			desktopFont="25px"
-			horizontalFont="7.5vh"
-			borderColor={contentHash[selectedProjectID].themeColorPrimary}
-			width={isMobile() ? '90%' : '53.189066059%'}
-			className="transitionAll2"
-			height="8.033240997%"
-			label="Details"
-			backdropFilter={isMobile() ? 'blur(4px)' : ''}
-			borderRadius={isMobile() ? '4px' : '0px'}
-			verticalFont="18px"
-		/>
 	</div>
 	<ProjectsNav
 		on:projectSelected={(e) => {

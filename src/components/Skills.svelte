@@ -149,15 +149,12 @@
 	}
 
 	export { show };
-	//transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}
-
-	//transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}
 </script>
 
 <div style="display: {containerDisplay};">
-	<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="80%" height="80%" />
 	{#if !isMobile()}
-		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="80%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
 		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
 		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
 		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
