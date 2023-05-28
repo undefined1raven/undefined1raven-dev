@@ -63,7 +63,13 @@
 		assessSkillSetExtension('Databases', 'databases');
 	}
 
+	var transitionDuration = 150;
 	onMount(() => {
+		if (isMobile()) {
+			transitionDuration = 10;
+		} else {
+			transitionDuration = 150;
+		}
 		windowID.subscribe((WID) => {
 			lwindowID = WID;
 		});
@@ -146,11 +152,26 @@
 </script>
 
 <div style="display: {containerDisplay};">
+	{#if isMobile()}
+		<div
+			id="mobileLn"
+			style="background: radial-gradient(
+			250.04% 3194999.83% at 0% 100%,
+			{lglobalTheme.primary} 0%,
+			rgba(97, 0, 255, 0) 100%
+		)"
+		/>
+	{/if}
 	<div class="skillsContainer" style="display: {containerDisplay};">
 		{#if !isMobile() && show}
 			<div
 				class="skillsMenuContainer"
-				transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}
+				transition:fly={{
+					duration: transitionDuration,
+					delay: transitionDuration,
+					x: '-30%',
+					y: '-20%'
+				}}
 			>
 				<Button
 					onClick={() => {
@@ -230,7 +251,12 @@
 		{#if show}
 			<ul
 				class="skillsContainerActual"
-				transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}
+				transition:fly={{
+					duration: transitionDuration,
+					delay: transitionDuration,
+					x: '30%',
+					y: '20%'
+				}}
 			>
 				{#each isMobile() ? sourceArray : skillSetHash[selectedSkillSet] as skill, ix}
 					{#if skill.name != 'empty' && show}
@@ -251,6 +277,19 @@
 </div>
 
 <style>
+	#mobileLn {
+		position: absolute;
+		top: 10.3125%;
+		left: 0.3125%;
+		width: 99.375%;
+		height: 0.1vh;
+		background: radial-gradient(
+				250.04% 3194999.83% at 0% 100%,
+				#6100ff 0%,
+				rgba(97, 0, 255, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+	}
 	.skillsContainerActual {
 		position: absolute;
 		top: 13.425925926%;

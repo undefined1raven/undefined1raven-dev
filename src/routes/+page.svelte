@@ -73,9 +73,6 @@
 		<MobileNav
 			on:onSelectionSelected={(e) => {
 				windowID.set(e.detail);
-				if (e.detail === 'skills') {
-					// window.location.pathname = '/skills';
-				}
 			}}
 			secondaryColor={lglobalTheme.secondary}
 			primaryColor={lglobalTheme.primary}
