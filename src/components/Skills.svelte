@@ -68,7 +68,7 @@
 	var transitionDuration = 150;
 	onMount(() => {
 		if (isMobile()) {
-			transitionDuration = 10;
+			transitionDuration = 0;
 		} else {
 			transitionDuration = 150;
 		}
