@@ -24,6 +24,9 @@
 	import BackendLogo from '../deco/BackendLogo.svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import isMobile from '../fn/isMobile';
+	import windowID from '../stores/windowID';
+
+	let lwindowID = 'projects';
 
 	let lglobalTheme = {};
 
@@ -61,6 +64,9 @@
 	}
 
 	onMount(() => {
+		windowID.subscribe((WID) => {
+			lwindowID = WID;
+		});
 		globalTheme.subscribe((theme) => {
 			lglobalTheme = theme;
 		});
@@ -70,6 +76,9 @@
 		}
 	});
 
+	$: lwindowID == 'skills' ? (containerDisplay = 'flex') : (containerDisplay = 'none');
+
+	var containerDisplay = 'none';
 	let show = false;
 
 	var selectedSkillSet = 'frontend';
@@ -136,10 +145,13 @@
 	//transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}
 </script>
 
-<div style="opacity: {show ? 1 : 0};">
-	<div class="skillsContainer" style="opacity: {show ? 1 : 0}">
+<div style="display: {containerDisplay};">
+	<div class="skillsContainer" style="display: {containerDisplay};">
 		{#if !isMobile() && show}
-			<div class="skillsMenuContainer" transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}>
+			<div
+				class="skillsMenuContainer"
+				transition:fly={{ duration: 150, delay: 150, x: '-30%', y: '-20%' }}
+			>
 				<Button
 					onClick={() => {
 						updateDisplayedSkillSet('frontend');
@@ -216,7 +228,10 @@
 			</div>
 		{/if}
 		{#if show}
-			<ul class="skillsContainerActual" transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}>
+			<ul
+				class="skillsContainerActual"
+				transition:fly={{ duration: 150, delay: 150, x: '30%', y: '20%' }}
+			>
 				{#each isMobile() ? sourceArray : skillSetHash[selectedSkillSet] as skill, ix}
 					{#if skill.name != 'empty' && show}
 						<SkillsListEntry

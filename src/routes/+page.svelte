@@ -13,14 +13,18 @@
 	import IntroSeq from '../components/IntroSeq.svelte';
 	import ContactDock from '../components/ContactDock.svelte';
 	import Skills from '../components/Skills.svelte';
+	import windowID from '../stores/windowID';
 
 	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
-	let windowID = 'projects'; // projects || skills || contact
+	let lwindowID = 'projects'; // projects || skills || contact
 
 	onMount(() => {
-		if(sessionStorage.getItem('introPlayed') != null){
+		windowID.subscribe((WID) => {
+			lwindowID = WID;
+		});
+		if (sessionStorage.getItem('introPlayed') != null) {
 			introFinished = false;
-		}else{ 
+		} else {
 			introFinished = true;
 		}
 		globalTheme.subscribe((theme) => {
@@ -28,7 +32,7 @@
 		});
 	});
 
-	var introFinished = false;  
+	var introFinished = false;
 </script>
 
 <div id="root">
@@ -50,11 +54,11 @@
 	); transition: background ease-in-out 0.2s;"
 		/>
 	{/if}
-	{#if windowID == 'projects'}
+	{#if lwindowID == 'projects'}
 		<ProjectEntry show={introFinished} />
 	{/if}
-	{#if windowID == 'skills'}
-		<Skills show={true} />
+	{#if lwindowID == 'skills'}
+		<Skills show={lwindowID == 'skills'} />
 	{/if}
 
 	<ContactDock show={introFinished} color={lglobalTheme.primary} />
@@ -62,15 +66,15 @@
 	{#if introFinished}
 		<Nav
 			on:onSelectionSelected={(e) => {
-				windowID = e.detail;
+				windowID.set(e.detail);
 			}}
 			primaryColor={lglobalTheme.primary}
 		/>
 		<MobileNav
 			on:onSelectionSelected={(e) => {
-				windowID = e.detail;
+				windowID.set(e.detail);
 				if (e.detail === 'skills') {
-					window.location.pathname = '/skills';
+					// window.location.pathname = '/skills';
 				}
 			}}
 			secondaryColor={lglobalTheme.secondary}

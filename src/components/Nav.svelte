@@ -92,6 +92,7 @@
 		left: 0.3125%;
 		width: 14.739583333%;
 		height: 24.259259259%;
+		z-index: 250;
 	}
 	.titleContainer {
 		position: absolute;
