@@ -22,9 +22,11 @@
 	import DevOpsLogo from '../deco/DevOpsLogo.svelte';
 	import DatabasesLogo from '../deco/DatabasesLogo.svelte';
 	import BackendLogo from '../deco/BackendLogo.svelte';
+	import NewRelicLogo from '../deco/newRelicLogo.svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import isMobile from '../fn/isMobile';
 	import windowID from '../stores/windowID';
+	import SkillsDeco from '../deco/SkillsDeco.svelte';
 
 	let lwindowID = 'projects';
 
@@ -109,7 +111,8 @@
 	var devOpsSkills = [
 		{ name: 'Github', logo: GithubLogo },
 		{ name: 'Git', logo: GitLogo },
-		{ name: 'Using Product-Specific Dashboards', logo: GenericLogo }
+		{ name: 'Using Product-Specific Dashboards', logo: GenericLogo },
+		{ name: 'New Relic', logo: NewRelicLogo }
 	];
 	var databasesSkills = [
 		{ name: 'Mongo DB', logo: MongoDbLogo },
@@ -152,6 +155,14 @@
 </script>
 
 <div style="display: {containerDisplay};">
+	{#if !isMobile()}
+		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
+	{/if}
 	{#if isMobile()}
 		<div
 			id="mobileLn"
@@ -159,7 +170,7 @@
 			250.04% 3194999.83% at 0% 100%,
 			{lglobalTheme.primary} 0%,
 			rgba(97, 0, 255, 0) 100%
-		)"
+		); z-index: 2;"
 		/>
 	{/if}
 	<div class="skillsContainer" style="display: {containerDisplay};">

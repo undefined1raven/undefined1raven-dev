@@ -36,7 +36,7 @@
 	<div
 		class="contactDockContainer"
 		transition:fly={{ y: '20%', duration: 200, delay: 150 }}
-		style="display: {isMinified ? 'none' : 'flex'};"
+		style="display: {isMobile() ? 'none' : 'flex'};"
 	>
 		<div
 			class="contactDockBorderTop"

@@ -7,6 +7,10 @@
 	import isMobile from '../fn/isMobile';
 	import { onMount } from 'svelte';
 	import { createEventDispatcher } from 'svelte';
+	import windowID from '../stores/windowID';
+
+	let lwindowID = 'projects';
+
 	const dispatch = createEventDispatcher();
 	let lscreenSize;
 	let isMinified = false;
@@ -19,6 +23,9 @@
 		}
 	}
 	onMount(() => {
+		windowID.subscribe((WID) => {
+			lwindowID = WID;
+		});
 		screenSize.subscribe((val) => {
 			lscreenSize = val;
 			setIsMinified();
@@ -54,7 +61,7 @@
 		onClick={() => onSectionSelected('projects')}
 		label="Projects"
 		top="46.564885496%"
-		color={primaryColor}
+		color={lwindowID == 'projects' ? '#FFF' : primaryColor}
 		borderColor={primaryColor}
 		backgroundColor="{primaryColor}20"
 		width="100%"
@@ -65,7 +72,7 @@
 		onClick={() => onSectionSelected('skills')}
 		label="Skills"
 		top="66.41221374%"
-		color={primaryColor}
+		color={lwindowID == 'skills' ? '#FFF' : primaryColor}
 		borderColor={primaryColor}
 		backgroundColor="{primaryColor}00"
 		width="100%"
@@ -76,7 +83,7 @@
 		onClick={() => onSectionSelected('contact')}
 		label="About Me & Contact"
 		top="86.259541985%"
-		color={primaryColor}
+		color={lwindowID == 'contact' ? '#FFF' : primaryColor}
 		borderColor={primaryColor}
 		backgroundColor="{primaryColor}00"
 		width="100%"

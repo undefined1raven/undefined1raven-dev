@@ -69,6 +69,7 @@
 		height: 13.202614379%;
 		width: 99.5%;
 		border: solid 1px #6100ff;
+		backdrop-filter: blur(10px);
 	}
 	@media only screen and (max-width: 1000px) and (min-height: 600px) {
 		.skillEntryContainer {
