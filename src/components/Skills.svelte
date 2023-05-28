@@ -27,8 +27,24 @@
 	import isMobile from '../fn/isMobile';
 	import windowID from '../stores/windowID';
 	import SkillsDeco from '../deco/SkillsDeco.svelte';
+	import screenSize from '../stores/screenSize';
+	import Label from './Label.svelte';
 
+	let lscreenSize = {};
 	let lwindowID = 'projects';
+
+	let containerSize = {
+		top: '13.425925926%',
+		left: '32.34375%',
+		width: '41.822916667%',
+		height: '70.833333333%'
+	};
+	let menuContainerSize = {
+		left: '19.427083333%',
+		width: '12.239583333%',
+		top: '13.425925926%',
+		height: '20.833333333%'
+	};
 
 	let lglobalTheme = {};
 
@@ -67,7 +83,33 @@
 
 	var transitionDuration = 150;
 	onMount(() => {
+		screenSize.subscribe((screenSizeActual) => {
+			lscreenSize = screenSizeActual;
+			if (!isMobile() && lscreenSize.width < 1300) {
+				containerSize = { top: '30%', left: '30%', width: '60%', height: '70%' };
+				menuContainerSize = {
+					left: '0.7%',
+					top: '30%',
+					width: '25%',
+					height: '20.833333333%'
+				};
+			} else {
+				containerSize = {
+					top: '13.425925926%',
+					left: '32.34375%',
+					width: '41.822916667%',
+					height: '70.833333333%'
+				};
+				menuContainerSize = {
+					left: '19.427083333%',
+					width: '12.239583333%',
+					top: '13.425925926%',
+					height: '20.833333333%'
+				};
+			}
+		});
 		if (isMobile()) {
+			containerSize = { top: '14%', left: '1.111111111%', width: '97.777777778%', height: '87%' };
 			transitionDuration = 0;
 		} else {
 			transitionDuration = 150;
@@ -161,18 +203,20 @@
 		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
 	{/if}
 	{#if isMobile()}
+		<Label color={lglobalTheme.primary} verticalFont="20px" top="0.625%" left="23%" style="display: {containerDisplay}; border-left: solid 1px {lglobalTheme.primary}; padding-left: 3.5%; letter-spacing: 0.6vh;" height="7.96875%" text="Skill Sets"></Label>
 		<div
 			id="mobileLn"
 			style="background: radial-gradient(
 			250.04% 3194999.83% at 0% 100%,
 			{lglobalTheme.primary} 0%,
-			rgba(97, 0, 255, 0) 100%
+			rgba(97, 0, 255, 0) 45%
 		); z-index: 2;"
 		/>
 	{/if}
 	<div class="skillsContainer" style="display: {containerDisplay};">
 		{#if !isMobile() && show}
 			<div
+				style="left: {menuContainerSize.left}; top: {menuContainerSize.top}; width: {menuContainerSize.width}; height: {menuContainerSize.height};"
 				class="skillsMenuContainer"
 				transition:fly={{
 					duration: transitionDuration,
@@ -259,6 +303,7 @@
 		{#if show}
 			<ul
 				class="skillsContainerActual"
+				style="left: {containerSize.left}; top: {containerSize.top}; width: {containerSize.width}; height: {containerSize.height};"
 				transition:fly={{
 					duration: transitionDuration,
 					delay: transitionDuration,
@@ -321,12 +366,5 @@
 		width: 12.239583333%;
 		height: 20.833333333%;
 		z-index: 7;
-	}
-	@media only screen and (max-width: 1000px) and (min-height: 600px) {
-		.skillsContainerActual {
-			width: 97.777777778%;
-			left: 1.111111111%;
-			height: 87%;
-		}
 	}
 </style>

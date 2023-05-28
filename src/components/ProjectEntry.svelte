@@ -57,7 +57,7 @@
 			nextProjectPreview = false;
 			let sideScrollCancelThreshold = 0.15 * document.documentElement.clientWidth;
 			let xTouchDelta = ltouchMove.x - ltouchStart.x;
-			if(Math.abs(xTouchDelta) < sideScrollCancelThreshold){
+			if (Math.abs(xTouchDelta) < sideScrollCancelThreshold) {
 				swipeAction(xTouchDelta * -1);
 			}
 			transitionOverlayBackdropFilterBlurValue = 0;
@@ -81,8 +81,6 @@
 			}
 		}
 	}
-
-
 
 	$: selectedProjectID = projectIndexArray[selectedProjectIndex];
 
@@ -167,6 +165,12 @@
 				animated={true}
 			/>
 		</div>
+		{#if isMobile()}
+			<div
+				id="mobileLn"
+				style="background: radial-gradient(157.86% 1624265.94% at 48.47% 100%, {contentHash[selectedProjectID].themeColorPrimary} 0%, rgba(97, 0, 255, 0) 30%); z-index: 20;"
+			/>
+		{/if}
 		<Label
 			id="title"
 			className="transitionAll1"
@@ -301,6 +305,13 @@
 {/if}
 
 <style>
+	#mobileLn {
+		position: absolute;
+		top: 110.3125%;
+		left: 0.3125%;
+		width: 99.375%;
+		height: 0.1vh;
+	}
 	#blurTransitionOverlay {
 		position: absolute;
 		top: 0%;

@@ -81,7 +81,7 @@
 	/>
 	<Button
 		onClick={() => onSectionSelected('contact')}
-		label="About Me & Contact"
+		label="{lscreenSize?.width < 1000 ? 'Contact' : 'About Me & Contact'}"
 		top="86.259541985%"
 		color={lwindowID == 'contact' ? '#FFF' : primaryColor}
 		borderColor={primaryColor}

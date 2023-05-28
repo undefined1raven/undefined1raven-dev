@@ -4,6 +4,26 @@
 	import { createEventDispatcher } from 'svelte';
 	import { fly, scale, fade } from 'svelte/transition';
 	import isMobile from '../fn/isMobile';
+	import screenSize from '../stores/screenSize';
+
+	let lscreenSize = {};
+	let containerWidth = '99.5%';
+
+	onMount(() => {
+		screenSize.subscribe((screenSizeActual) => {
+			lscreenSize = screenSizeActual;
+			if (isMobile()) {
+				containerWidth = '99.5%';
+			} else {
+				if (lscreenSize.width < 1000) {
+					containerWidth = '97%';
+				} else {
+					containerWidth = '99.5%';
+				}
+			}
+		});
+	});
+
 	const dispatch = createEventDispatcher();
 	let label = '';
 	let logo;
@@ -20,7 +40,7 @@
 		dispatch('listItemOnClick', label);
 	}}
 	class="skillEntryContainer"
-	style="border-color: {logoColor}"
+	style="border-color: {logoColor}; width: {containerWidth};"
 	transition:fly={{
 		duration: isMobile() ? 50 : 150,
 		delay: isMobile() ? 10 : (ix + 1) * 50,
@@ -29,7 +49,13 @@
 	}}
 >
 	<div class="labelContainer" transition:fade={{ duration: 50 }}>
-		<Label style="text-align: start;" color={labelColor} verticalFont="17px" desktopFont="20px" text={label} />
+		<Label
+			style="text-align: start;"
+			color={labelColor}
+			verticalFont="17px"
+			desktopFont="20px"
+			text={label}
+		/>
 	</div>
 	<div
 		class="skillDeco"
