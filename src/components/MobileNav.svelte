@@ -37,6 +37,14 @@
 				id="mobileNavControlllerContainerI"
 				color={primaryColor}
 				size="65%"
+				blurPx={5}
+				style="top: 50%; transform: translate(0, -50%); left: 2%;"
+			/>
+			<LogoMin
+				id="mobileNavControlllerContainerI"
+				color={primaryColor}
+				size="65%"
+				blurPx={0}
 				style="top: 50%; transform: translate(0, -50%); left: 2%;"
 			/>
 			<ArrowIndi
@@ -89,6 +97,10 @@
 					label="Skills"
 				/>
 				<Button
+					onClick={() => {
+						dispatch('onSelectionSelected', 'contact');
+						console.log('what the fuc')
+					}}
 					className="mobileNavMenuComponent"
 					left="9.943181818%"
 					width="80.397727273%"

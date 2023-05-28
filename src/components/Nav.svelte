@@ -55,7 +55,8 @@
 			left="33.085501859%"
 			desktopFont="15px"
 		/>
-		<LogoMin size="7vh" style="left: {isMinified ? 'auto' : '5%'};" color={primaryColor} />
+		<LogoMin size="7vh" blurPx={5} style="left: {isMinified ? 'auto' : '5%'};" color={primaryColor} />
+		<LogoMin size="7vh" blurPx={0} style="left: {isMinified ? 'auto' : '5%'};" color={primaryColor} />
 	</div>
 	<Button
 		onClick={() => onSectionSelected('projects')}

@@ -82,6 +82,16 @@
 	}
 
 	var transitionDuration = 150;
+
+	function onShowBugFix(){
+		expandState['Front-End'] = true;
+		setTimeout(() => {
+			expandState['Front-End'] = false;
+		}, 40);
+	}
+
+	$: onShowBugFix(lwindowID);
+
 	onMount(() => {
 		screenSize.subscribe((screenSizeActual) => {
 			lscreenSize = screenSizeActual;

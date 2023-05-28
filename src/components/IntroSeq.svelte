@@ -28,7 +28,6 @@
 				iniAniDecoShowArr[ix] = false;
 			});
 			introFinished = true;
-			sessionStorage.setItem('introPlayed', true);
 			dispatch('introFinished');
 		}, 800);
 	});

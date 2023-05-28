@@ -14,6 +14,7 @@
 	import ContactDock from '../components/ContactDock.svelte';
 	import Skills from '../components/Skills.svelte';
 	import windowID from '../stores/windowID';
+	import AboutMe from '../components/AboutMe.svelte';
 
 	let lglobalTheme = { primary: '#6100FF', secondary: '#35008B' };
 	let lwindowID = 'projects'; // projects || skills || contact
@@ -22,11 +23,7 @@
 		windowID.subscribe((WID) => {
 			lwindowID = WID;
 		});
-		if (sessionStorage.getItem('introPlayed') != null) {
-			introFinished = false;
-		} else {
-			introFinished = true;
-		}
+
 		globalTheme.subscribe((theme) => {
 			lglobalTheme = theme;
 		});
@@ -60,8 +57,9 @@
 	{#if lwindowID == 'skills'}
 		<Skills show={lwindowID == 'skills'} />
 	{/if}
+	<AboutMe />
 
-	<ContactDock show={introFinished} color={lglobalTheme.primary} />
+	<ContactDock show={introFinished && lwindowID != 'contact'} color={lglobalTheme.primary} />
 
 	{#if introFinished}
 		<Nav
