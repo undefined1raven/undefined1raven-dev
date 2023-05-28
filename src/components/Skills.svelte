@@ -155,13 +155,13 @@
 </script>
 
 <div style="display: {containerDisplay};">
+	<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="80%" height="80%" />
 	{#if !isMobile()}
-		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
-		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
-		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
-		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
-		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
-		<SkillsDeco color={lglobalTheme.primary} width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="80%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
+		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
 	{/if}
 	{#if isMobile()}
 		<div
@@ -290,7 +290,7 @@
 <style>
 	#mobileLn {
 		position: absolute;
-		top: 10.3125%;
+		top: 11.3125%;
 		left: 0.3125%;
 		width: 99.375%;
 		height: 0.1vh;

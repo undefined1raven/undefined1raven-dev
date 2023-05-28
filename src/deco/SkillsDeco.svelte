@@ -5,6 +5,7 @@
     let color = '#6100FF';
     let width = '5vh';
     let height = '3vh';
+    let opacity = 1;
 
     let randomArray = [];
     onMount(() => {
@@ -25,11 +26,11 @@
         }
     }
 
-    export { width, height, color };
+    export { width, height, color, opacity };
 </script>
 
-
-<svg transition:scale={{duration: 200}} width="1189" height="815" viewBox="0 0 1189 815" fill="none" xmlns="http://www.w3.org/2000/svg">
+<div style="position: absolute; width: {width}; height: {height}; display: flex; align-items: center; justify-content: center; opacity: {opacity};">
+<svg transition:scale={{duration: 200}} width="100%" height="100%" viewBox="0 0 1189 815" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="419.507" y="96.5543" width="3" height="361" transform="rotate(39.6443 419.507 96.5543)" fill={color} fill-opacity={randomArray[0]}/>
 <rect x="275" y="287.148" width="3" height="361" transform="rotate(-22.4975 275 287.148)" fill={color} fill-opacity={randomArray[1]}/>
 <rect x="345" y="130.148" width="3" height="361" transform="rotate(-22.4975 345 130.148)" fill={color} fill-opacity={randomArray[2]}/>
@@ -65,7 +66,8 @@
 <path d="M521 437C521 478.421 487.421 512 446 512C404.579 512 371 478.421 371 437C371 395.579 404.579 362 446 362C487.421 362 521 395.579 521 437ZM374.678 437C374.678 476.39 406.61 508.322 446 508.322C485.39 508.322 517.322 476.39 517.322 437C517.322 397.61 485.39 365.678 446 365.678C406.61 365.678 374.678 397.61 374.678 437Z" fill={color} fill-opacity={randomArray[52]}/>
 <path d="M439 351C439 433.843 371.843 501 289 501C206.157 501 139 433.843 139 351C139 268.157 206.157 201 289 201C371.843 201 439 268.157 439 351ZM142.831 351C142.831 431.727 208.273 497.169 289 497.169C369.727 497.169 435.169 431.727 435.169 351C435.169 270.273 369.727 204.831 289 204.831C208.273 204.831 142.831 270.273 142.831 351Z" fill={color} fill-opacity={randomArray[53]}/>
 </svg>
-<div style="position: absolute; width: {width}; height: {height}; z-index: 1; backdrop-filter: blur(2px);"></div>
+<div style="position: absolute; width: 100%; height: 100%; z-index: 2; backdrop-filter: blur(2px);"></div>
+</div>
 
 <style>
     rect, path{
