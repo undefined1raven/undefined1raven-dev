@@ -4,8 +4,10 @@
 	import { fly, scale } from 'svelte/transition';
 	import ArrowIndi from '../deco/ArrowIndi.svelte';
 	import Button from './Button.svelte';
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
+	import Label from './Label.svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import windowID from '../stores/windowID';
+
 	let primaryColor;
 	let secondaryColor;
 	let isExtended = false;
@@ -14,6 +16,10 @@
 		if (e.target.id != 'mobileNavControlllerContainerI') {
 			isExtended = false;
 		}
+	}
+
+	function dispatchSelection(WID) {
+		windowID.set(WID);
 	}
 
 	export { primaryColor, secondaryColor };
@@ -68,7 +74,7 @@
 			>
 				<Button
 					onClick={() => {
-						dispatch('onSelectionSelected', 'projects');
+						dispatchSelection('projects');
 					}}
 					className="mobileNavMenuComponent"
 					left="9.943181818%"
@@ -81,29 +87,30 @@
 					borderColor={primaryColor}
 					label="Projects"
 				/>
-				<Button
-					onClick={() => {
-						dispatch('onSelectionSelected', 'skills');
+				<Label
+					onClick={(e) => {
+						dispatchSelection('skills');
 					}}
 					className="mobileNavMenuComponent"
 					left="9.943181818%"
 					width="80.397727273%"
 					height="16.438356164%"
 					verticalFont="18px"
+					style="z-index: 10;"
 					borderRadius="5px"
 					top="42.922374429%"
 					color={primaryColor}
 					borderColor={primaryColor}
-					label="Skills"
+					text="Skills"
 				/>
 				<Button
-					onClick={() => {
-						dispatch('onSelectionSelected', 'contact');
-						console.log('what the fuc')
+					onClick={(e) => {
+						dispatchSelection('contact');
 					}}
 					className="mobileNavMenuComponent"
 					left="9.943181818%"
 					width="80.397727273%"
+					style="z-index: 2;"
 					height="16.438356164%"
 					verticalFont="18px"
 					borderRadius="5px"

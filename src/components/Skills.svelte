@@ -83,7 +83,7 @@
 
 	var transitionDuration = 150;
 
-	function onShowBugFix(){
+	function onShowBugFix() {
 		expandState['Front-End'] = true;
 		setTimeout(() => {
 			expandState['Front-End'] = false;
@@ -213,7 +213,15 @@
 		<SkillsDeco color={lglobalTheme.primary} opacity="0.1" width="100%" height="100%" />
 	{/if}
 	{#if isMobile()}
-		<Label color={lglobalTheme.primary} verticalFont="20px" top="0.625%" left="23%" style="display: {containerDisplay}; border-left: solid 1px {lglobalTheme.primary}; padding-left: 3.5%; letter-spacing: 0.6vh;" height="7.96875%" text="Skill Sets"></Label>
+		<Label
+			color={lglobalTheme.primary}
+			verticalFont="20px"
+			top="0.625%"
+			left="23%"
+			style="display: {containerDisplay}; border-left: solid 1px {lglobalTheme.primary}; padding-left: 3.5%; letter-spacing: 0.6vh;"
+			height="7.96875%"
+			text="Skill Sets"
+		/>
 		<div
 			id="mobileLn"
 			style="background: radial-gradient(
@@ -314,12 +322,14 @@
 			<ul
 				class="skillsContainerActual"
 				style="left: {containerSize.left}; top: {containerSize.top}; width: {containerSize.width}; height: {containerSize.height};"
-				transition:fly={{
-					duration: transitionDuration,
-					delay: transitionDuration,
-					x: '30%',
-					y: '20%'
-				}}
+				transition:fly={!isMobile()
+					? {
+							duration: transitionDuration,
+							delay: transitionDuration,
+							x: '30%',
+							y: '20%'
+					  }
+					: { x: '0%', y: '0%', duration: 0 }}
 			>
 				{#each isMobile() ? sourceArray : skillSetHash[selectedSkillSet] as skill, ix}
 					{#if skill.name != 'empty' && show}
