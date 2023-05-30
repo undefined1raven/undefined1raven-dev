@@ -1,6 +1,7 @@
 <script>
 	import Label from './Label.svelte';
 	import Button from './Button.svelte';
+	import isMobile from '../fn/isMobile';
 
 	let color = '#6100FF';
 	let left = '0%';
@@ -9,37 +10,53 @@
 	let buttonLabel = '';
 	let primaryLabel = '';
 	let buttonHref = '';
-    let primaryLabelDesktopFontSize = '20px';
+	let primaryLabelDesktopFontSize = '20px';
 
-	export { color, left, primaryLabel, logo, buttonLabel, onButtonAction, buttonHref, primaryLabelDesktopFontSize };
+	export {
+		color,
+		left,
+		primaryLabel,
+		logo,
+		buttonLabel,
+		onButtonAction,
+		buttonHref,
+		primaryLabelDesktopFontSize
+	};
 </script>
 
 <div class="contactContainer" style="left: {left}; background-color: {color}20;">
-    <div style="width: 98%; height: 98%; position: absolute; border: solid 4px {color}; border-radius: 15px;"></div>
-    <div style="width: 100%; height: 100%; position: absolute; backdrop-filter: blur(10px); border-radius: 15px;"></div>
+	<div
+		style="width: 98%; height: 98%; position: absolute; border: solid 4px {color}; border-radius: 15px;"
+	/>
+	<div
+		style="width: 100%; height: 100%; position: absolute; backdrop-filter: blur(10px); border-radius: 15px;"
+	/>
 	<Label
 		text={primaryLabel}
 		{color}
-		desktopFont="{primaryLabelDesktopFontSize}"
+		desktopFont={primaryLabelDesktopFontSize}
+		verticalFont="14px"
 		width="100%"
+		height="50%"
 		style="text-align: center;"
-		top="40%"
+		top={isMobile() ? '45%' : '23%'}
 		left="0%"
 	/>
 	<a href={buttonHref} target={buttonHref != '' ? '_blank' : ''}>
 		<Button
 			onClick={onButtonAction}
-			width="80%"
-			height="20%"
+			width={isMobile() ? '100%' : '80%'}
+			height={isMobile() ? '100%' : '20%'}
 			label={buttonLabel}
-			{color}
-			borderColor={color}
-			backgroundColor="{color}20"
+			color={isMobile() ? '#00000000' : color}
+			borderColor={isMobile() ? '#00000000' : color}
+			backgroundColor={isMobile() ? '#00000000' : `${color}20`}
 			borderRadius="5px"
-			top="65%"
-			left="50%"
-			style="transform: translate(-50%); text-align: center;"
+			top={isMobile() ? '0%' : '65%'}
+			left={isMobile() ? '0%' : '50%'}
+			style="{isMobile() ? '' : 'transform: translate(-50%);'} text-align: center;"
 			desktopFont="20px"
+			verticalFont="0px"
 		/>
 	</a>
 	<svelte:component

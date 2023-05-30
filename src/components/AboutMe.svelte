@@ -9,6 +9,7 @@
 	import EmailDeco from '../deco/EmailDeco.svelte';
 	import screenSize from '../stores/screenSize';
 	import Label from './Label.svelte';
+	import isMobile from '../fn/isMobile';
 
 	let lscreenSize = {};
 	let lglobalTheme = {};
@@ -28,9 +29,25 @@
 
 {#if lwindowID == 'contact'}
 	<div class="aboutMeContainer">
-		<div class="contactCardsContainer" transition:fly={{ y: '40%', duration: 150, delay: 120 }}>
+		{#if isMobile()}
+			<div
+				id="mobileLn"
+				style="background: radial-gradient(
+		250.04% 3194999.83% at 0% 100%,
+		{lglobalTheme.primary} 0%,
+		rgba(97, 0, 255, 0) 45%
+	); z-index: 2;"
+			/>
+		{/if}
+		<div
+			class="contactCardsContainer"
+			transition:fly={{ y: '40%', duration: 150, delay: 120 }}
+			style="height: {isMobile() ? '15.111111111%' : '26.111111111%'}; top: {isMobile()
+				? '82%'
+				: '42.314814815%'};"
+		>
 			<ContactCard
-				primaryLabel="zlat.dominic.francisc@gmail.com"
+				primaryLabel={isMobile() ? 'Copy to clipboard' : 'zlat.dominic.francisc@gmail.com'}
 				left="0%"
 				logo={EmailDeco}
 				primaryLabelDesktopFontSize={lscreenSize.width < 800 ? '10px' : '20px'}
@@ -44,7 +61,7 @@
 				color={lglobalTheme.primary}
 			/>
 			<ContactCard
-				primaryLabel="Connect with me on LinkedIn"
+				primaryLabel={isMobile() ? 'View LinkedIn' : 'Connect with me on LinkedIn'}
 				logo={LinkedLogo}
 				buttonLabel="View Profile"
 				left="34.555555556%"
@@ -52,7 +69,7 @@
 				color={lglobalTheme.primary}
 			/>
 			<ContactCard
-				primaryLabel="Check out more of my work on Github"
+				primaryLabel={isMobile() ? 'View Github' : 'Check out more of my work on Github'}
 				buttonLabel="View Github"
 				buttonHref="https://github.com/undefined1raven"
 				left="69.2222222%"
@@ -60,8 +77,15 @@
 				color={lglobalTheme.primary}
 			/>
 		</div>
-		<div class="aboutMeContainerActual" transition:fly={{ y: '-40%', duration: 150, delay: 120 }}>
+		<div
+			class="aboutMeContainerActual"
+			transition:fly={{ y: '-40%', duration: 150, delay: 120 }}
+			style="height: {isMobile() ? '60%' : '23.333333333%'}; left: {isMobile()
+				? '5%'
+				: '26.5625%'}; width: {isMobile() ? '90%' : '46.876%'};"
+		>
 			<Label
+				show={!isMobile()}
 				text="About Me"
 				color={lglobalTheme.primary}
 				backgroundColor="{lglobalTheme.primary}20"
@@ -79,6 +103,7 @@
 				borderRadius="5px"
 				desktopFont="19px"
 				color={lglobalTheme.primary}
+				verticalFont="14px"
 				text="I am not an alien. Trust me"
 			/>
 		</div>
@@ -86,6 +111,19 @@
 {/if}
 
 <style>
+	#mobileLn {
+		position: absolute;
+		top: 11.3125%;
+		left: 0.3125%;
+		width: 99.375%;
+		height: 0.1vh;
+		background: radial-gradient(
+				250.04% 3194999.83% at 0% 100%,
+				#6100ff 0%,
+				rgba(97, 0, 255, 0) 100%
+			)
+			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+	}
 	.aboutMeContainerActual {
 		position: absolute;
 		left: 26.5625%;
