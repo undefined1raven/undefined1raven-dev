@@ -15,8 +15,8 @@
 </script>
 
 <div class="contactContainer" style="left: {left}; background-color: {color}20;">
-    <div style="width: 98%; height: 98%; position: absolute; border: solid 4px {color}"></div>
-    <div style="width: 100%; height: 100%; position: absolute; backdrop-filter: blur(5px);"></div>
+    <div style="width: 98%; height: 98%; position: absolute; border: solid 4px {color}; border-radius: 15px;"></div>
+    <div style="width: 100%; height: 100%; position: absolute; backdrop-filter: blur(10px); border-radius: 15px;"></div>
 	<Label
 		text={primaryLabel}
 		{color}
@@ -69,6 +69,6 @@
 		justify-content: center;
 		width: 30.777777778%;
 		height: 100%;
-		border-radius: 15px;
+		border-radius: 20px;
 	}
 </style>

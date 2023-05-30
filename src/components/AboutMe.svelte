@@ -8,6 +8,7 @@
 	import LinkedLogo from '../deco/linkedLogo.svelte';
 	import EmailDeco from '../deco/EmailDeco.svelte';
 	import screenSize from '../stores/screenSize';
+	import Label from './Label.svelte';
 
 	let lscreenSize = {};
 	let lglobalTheme = {};
@@ -59,17 +60,38 @@
 				color={lglobalTheme.primary}
 			/>
 		</div>
+		<div class="aboutMeContainerActual" transition:fly={{ y: '-40%', duration: 150, delay: 120 }}>
+			<Label
+				text="About Me"
+				color={lglobalTheme.primary}
+				backgroundColor="{lglobalTheme.primary}20"
+				width="22.222222222%"
+				height="15.079365079%"
+				desktopFont="20px"
+				borderRadius="5px"
+			/>
+			<Label
+				width="100%"
+				height="77.777777778%"
+				top="29.230769231%"
+				left="0%"
+				backgroundColor="{lglobalTheme.primary}10"
+				borderRadius="5px"
+				desktopFont="19px"
+				color={lglobalTheme.primary}
+				text="I am not an alien. Trust me"
+			/>
+		</div>
 	</div>
 {/if}
 
 <style>
-	@keyframes fromBelowAni {
-		0% {
-			transform: translateY(40%);
-		}
-		100% {
-			transform: translateY(0%);
-		}
+	.aboutMeContainerActual {
+		position: absolute;
+		left: 26.5625%;
+		top: 13.518518519%;
+		width: 46.875%;
+		height: 23.333333333%;
 	}
 	.contactCardsContainer {
 		position: absolute;

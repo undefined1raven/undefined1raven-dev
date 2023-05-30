@@ -58,7 +58,7 @@
 	/>
 	<Label
 		className="introText"
-		text="[raven@axq]>Link Established with host [xx.xvx.xxs.xa]"
+		text="[raven@axq]>Link Established with host [76.76.21.93]"
 		color="#2400FF"
 		show={iniAniDecoShowArr[0]}
 		top="2%"
