@@ -59,7 +59,7 @@
 				</div></Button
 			></a
 		>
-		<a href="https://linkedin.com/in/dominic-zlat-614253233" target="_blank"
+		<a href="https://linkedin.com/in/dominic-zlat" target="_blank"
 			><Button
 				label={isMinified ? '' : 'LinkedIn'}
 				width="calc(47.680412371% - 10%)"
