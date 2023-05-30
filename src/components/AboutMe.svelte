@@ -10,6 +10,7 @@
 	import screenSize from '../stores/screenSize';
 	import Label from './Label.svelte';
 	import isMobile from '../fn/isMobile';
+	import AboutMeDeco from '../deco/AboutMeDeco.svelte';
 
 	let lscreenSize = {};
 	let lglobalTheme = {};
@@ -30,6 +31,15 @@
 {#if lwindowID == 'contact'}
 	<div class="aboutMeContainer">
 		{#if isMobile()}
+			<Label
+				color={lglobalTheme.primary}
+				verticalFont="20px"
+				top="0.625%"
+				left="23%"
+				style="display: flex; border-left: solid 1px {lglobalTheme.primary}; padding-left: 3.5%; letter-spacing: 0.6vh;"
+				height="7.96875%"
+				text="About Me"
+			/>
 			<div
 				id="mobileLn"
 				style="background: radial-gradient(
@@ -41,9 +51,9 @@
 		{/if}
 		<div
 			class="contactCardsContainer"
-			transition:fly={{ y: '40%', duration: 150, delay: 120 }}
+			transition:fly={{ x: '-40%', y: '40%', duration: 150, delay: 120 }}
 			style="height: {isMobile() ? '15.111111111%' : '26.111111111%'}; top: {isMobile()
-				? '82%'
+				? '66%'
 				: '42.314814815%'};"
 		>
 			<ContactCard
@@ -79,10 +89,12 @@
 		</div>
 		<div
 			class="aboutMeContainerActual"
-			transition:fly={{ y: '-40%', duration: 150, delay: 120 }}
-			style="height: {isMobile() ? '60%' : '23.333333333%'}; left: {isMobile()
-				? '5%'
-				: '26.5625%'}; width: {isMobile() ? '90%' : '46.876%'};"
+			transition:fly={{ x: '40%', y: '-40%', duration: 150, delay: 120 }}
+			style="top: {isMobile() ? '-2.5%' : '13.518518519%'}; height: {isMobile()
+				? '60%'
+				: '23.333333333%'}; left: {isMobile() ? '5%' : '26.5625%'}; width: {isMobile()
+				? '90%'
+				: '46.876%'};"
 		>
 			<Label
 				show={!isMobile()}
@@ -107,6 +119,27 @@
 				text="I am not an alien. Trust me"
 			/>
 		</div>
+		<AboutMeDeco
+			opacity="0.5"
+			style="left: 50%; top: {isMobile() ? '75%' : '68%'}; transform: translate(-50%);"
+			height="35%"
+			width="50%"
+			color={lglobalTheme.primary}
+		/>
+		<AboutMeDeco
+			opacity="0.5"
+			style="left: 30%; top: {isMobile() ? '75%' : '68%'}; transform: translate(-50%);"
+			height="35%"
+			width="50%"
+			color={lglobalTheme.primary}
+		/>
+		<AboutMeDeco
+			opacity="0.5"
+			style="left: 70%; top: {isMobile() ? '75%' : '68%'}; transform: translate(-50%);"
+			height="35%"
+			width="50%"
+			color={lglobalTheme.primary}
+		/>
 	</div>
 {/if}
 

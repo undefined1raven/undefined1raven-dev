@@ -137,6 +137,15 @@
 	});
 
 	$: lwindowID == 'skills' ? (containerDisplay = 'flex') : (containerDisplay = 'none');
+	$: lwindowID == 'skills'
+		? (expandState = {
+				'Front-End': false,
+				'Back-End': false,
+				'Dev Ops': false,
+				Security: false,
+				Databases: false
+		  })
+		: '';
 
 	var containerDisplay = 'none';
 	let show = false;
